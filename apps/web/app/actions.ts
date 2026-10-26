@@ -84,10 +84,12 @@ export async function joinWaitlist(
       return { ok: true, alreadyRegistered: true };
     }
 
-    // 4. Send confirmation email for new signup
-    sendWaitlistConfirmation(email).catch((err) =>
-      console.error("Async email error:", err)
-    );
+    // 4. Send confirmation email for new signup (await so Vercel serverless doesn't freeze before completion)
+    try {
+      await sendWaitlistConfirmation(email);
+    } catch (emailErr) {
+      console.error("Confirmation email error:", emailErr);
+    }
 
     return { ok: true, alreadyRegistered: false };
   } catch (err) {
