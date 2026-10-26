@@ -17,14 +17,31 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://soundgoose.com"),
   title: "Sound Goose — From Unfinished Demo to Global Release",
-  description:
-    "Claim your artist handle, share unreleased demos, find collaborators, and distribute your music. Join the waitlist for early access.",
+  description: "Join the waitlist",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Sound Goose — From Unfinished Demo to Global Release",
-    description:
-      "Claim your artist handle, share unreleased demos, find collaborators, and distribute your music.",
+    description: "Join the waitlist",
     type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Sound Goose",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sound Goose — From Unfinished Demo to Global Release",
+    description: "Join the waitlist",
+    images: ["/logo.png"],
   },
 };
 
