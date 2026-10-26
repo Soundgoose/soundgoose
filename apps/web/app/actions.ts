@@ -4,7 +4,7 @@ import { sendWaitlistConfirmation } from "./email";
 
 export async function joinWaitlist(
   email: string
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; alreadyRegistered?: boolean; error?: string }> {
   if (!email || !email.includes("@")) {
     return { ok: false, error: "Please enter a valid email address." };
   }
@@ -20,8 +20,37 @@ export async function joinWaitlist(
   }
 
   try {
-    // Upsert person record – safe to call multiple times with the same email.
-    // Uses matching_attribute so existing contacts are updated, not duplicated.
+    // 1. Check if the contact already exists in Attio
+    let isExistingContact = false;
+    try {
+      const searchRes = await fetch(
+        "https://api.attio.com/v2/objects/people/records/query",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            filter: {
+              email_addresses: email,
+            },
+            limit: 1,
+          }),
+        }
+      );
+
+      if (searchRes.ok) {
+        const searchData = await searchRes.json();
+        if (searchData.data && searchData.data.length > 0) {
+          isExistingContact = true;
+        }
+      }
+    } catch (checkErr) {
+      console.warn("Could not check existing contact status:", checkErr);
+    }
+
+    // 2. Upsert person record in Attio
     const res = await fetch(
       "https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses",
       {
@@ -49,12 +78,18 @@ export async function joinWaitlist(
       };
     }
 
-    // Send confirmation email asynchronously (fails gracefully without blocking signup)
+    // 3. If already registered, skip sending email and return alreadyRegistered flag
+    if (isExistingContact) {
+      console.log(`Contact ${email} already on waitlist. Skipping duplicate confirmation email.`);
+      return { ok: true, alreadyRegistered: true };
+    }
+
+    // 4. Send confirmation email for new signup
     sendWaitlistConfirmation(email).catch((err) =>
       console.error("Async email error:", err)
     );
 
-    return { ok: true };
+    return { ok: true, alreadyRegistered: false };
   } catch (err) {
     console.error("Attio request failed:", err);
     return { ok: false, error: "Network error. Please try again." };

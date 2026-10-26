@@ -7,7 +7,7 @@ import styles from "./signup-form.module.css";
 export function SignupForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
+    "idle" | "submitting" | "success" | "already_registered" | "error"
   >("idle");
   const [error, setError] = useState("");
 
@@ -21,11 +21,28 @@ export function SignupForm() {
     const result = await joinWaitlist(email.trim());
 
     if (result.ok) {
-      setStatus("success");
+      if (result.alreadyRegistered) {
+        setStatus("already_registered");
+      } else {
+        setStatus("success");
+      }
     } else {
       setStatus("error");
       setError(result.error ?? "Something went wrong. Try again.");
     }
+  }
+
+  if (status === "already_registered") {
+    return (
+      <div className={styles.success}>
+        <p className={styles.successHeading}>
+          You&rsquo;re already on the waitlist!
+        </p>
+        <p className={styles.successNote}>
+          Your spot is saved. We&rsquo;ll reach out when your access is ready.
+        </p>
+      </div>
+    );
   }
 
   if (status === "success") {
