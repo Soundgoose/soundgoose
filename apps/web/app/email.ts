@@ -84,16 +84,10 @@ export function generateWaitlistEmailHtml() {
 
     <!-- Grounded Card Footer Bar -->
     <tr>
-      <td style="background-color: #F2EAE2; padding: 14px 28px; border-top: 1px solid #E8DDD2; text-align: center;">
-        <span style="font-size: 13px; font-weight: 600; color: #40271E; white-space: nowrap;">
-          Team Sound Goose
-        </span>
-        <span style="display: inline-block; margin: 0 8px; font-size: 10px; color: #9E8578; vertical-align: middle;">
-          &bull;
-        </span>
-        <a href="https://soundgoose.com" style="font-size: 13px; color: #73513D; text-decoration: none; white-space: nowrap;">
-          soundgoose.com
-        </a>
+      <td style="background-color: #F2EAE2; padding: 14px 24px; border-top: 1px solid #E8DDD2; text-align: center;">
+        <span style="font-size: 13px; font-weight: 600; color: #40271E;">Team&nbsp;Sound&nbsp;Goose</span>
+        <span style="display: inline-block; padding: 0 8px; font-size: 11px; color: #9E8578; vertical-align: baseline;">•</span>
+        <a href="https://soundgoose.com" style="font-size: 13px; color: #73513D; text-decoration: none;">soundgoose.com</a>
       </td>
     </tr>
   </table>
