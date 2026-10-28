@@ -1,15 +1,54 @@
 "use client";
 
-import { useState } from "react";
-import { joinWaitlist } from "./actions";
+import { useEffect, useState } from "react";
+import { track } from "@vercel/analytics";
+import { joinWaitlist, type WaitlistMetadata } from "./actions";
 import styles from "./signup-form.module.css";
 
 export function SignupForm() {
   const [email, setEmail] = useState("");
+  const [utmParams, setUtmParams] = useState<WaitlistMetadata>({});
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "already_registered" | "error"
   >("idle");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      const utmKeys: (keyof WaitlistMetadata)[] = [
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+        "ref",
+      ];
+
+      const captured: WaitlistMetadata = {};
+      let hasParams = false;
+
+      for (const key of utmKeys) {
+        const val = searchParams.get(key);
+        if (val) {
+          captured[key] = val;
+          hasParams = true;
+        }
+      }
+
+      if (hasParams) {
+        sessionStorage.setItem("soundgoose_utm", JSON.stringify(captured));
+        setUtmParams(captured);
+      } else {
+        const saved = sessionStorage.getItem("soundgoose_utm");
+        if (saved) {
+          setUtmParams(JSON.parse(saved));
+        }
+      }
+    } catch {
+      // Storage unavailable or blocked
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -18,15 +57,27 @@ export function SignupForm() {
     setStatus("submitting");
     setError("");
 
-    const result = await joinWaitlist(email.trim());
+    const result = await joinWaitlist(email.trim(), utmParams);
 
     if (result.ok) {
       if (result.alreadyRegistered) {
+        track("waitlist_signup", {
+          status: "already_registered",
+          ...utmParams,
+        });
         setStatus("already_registered");
       } else {
+        track("waitlist_signup", {
+          status: "success",
+          ...utmParams,
+        });
         setStatus("success");
       }
     } else {
+      track("waitlist_signup_error", {
+        reason: result.error ?? "unknown",
+        ...utmParams,
+      });
       setStatus("error");
       setError(result.error ?? "Something went wrong. Try again.");
     }
