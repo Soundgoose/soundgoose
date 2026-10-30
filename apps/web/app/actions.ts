@@ -1,7 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
-import { sendWaitlistConfirmation } from "./email";
+import { sendWaitlistConfirmation, EmailSendResult } from "./email";
 
 export interface WaitlistMetadata {
   utm_source?: string;
@@ -10,6 +10,58 @@ export interface WaitlistMetadata {
   utm_term?: string;
   utm_content?: string;
   ref?: string;
+}
+
+/**
+ * Updates the Waitlist list entry's email_status attribute in Attio.
+ * If the attribute does not exist on the list yet, it logs a clear warning without breaking.
+ */
+async function updateWaitlistEmailStatus(
+  apiKey: string,
+  listIdentifier: string,
+  personRecordId: string,
+  status: "sent" | "failed" | "skipped",
+  errorDetail?: string
+) {
+  try {
+    const entryValues: Record<string, unknown> = {
+      email_status: status,
+    };
+    if (errorDetail) {
+      entryValues.email_error = errorDetail.slice(0, 500);
+    }
+
+    const res = await fetch(
+      `https://api.attio.com/v2/lists/${encodeURIComponent(listIdentifier)}/entries`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            parent_record_id: personRecordId,
+            parent_object: "people",
+            entry_values: entryValues,
+          },
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.warn(
+        `[Attio List] Could not update 'email_status' on list '${listIdentifier}' (${res.status}): ${errText}. (Ensure an 'email_status' attribute exists on your Waitlist list)`
+      );
+    } else {
+      console.log(
+        `[Attio List] Successfully set email_status='${status}' on waitlist entry for person ${personRecordId}`
+      );
+    }
+  } catch (err) {
+    console.error("[Attio List] Exception while updating email_status attribute:", err);
+  }
 }
 
 export async function joinWaitlist(
@@ -194,17 +246,43 @@ export async function joinWaitlist(
       }
     }
 
-    // 3. If already registered, skip sending email and return alreadyRegistered flag
+    // 5. If already registered, skip sending email and return alreadyRegistered flag
     if (isExistingContact) {
-      console.log(`Contact ${email} already on waitlist. Skipping duplicate confirmation email.`);
+      console.log(`[Waitlist Flow] Contact ${email} already on waitlist. Skipping duplicate confirmation email.`);
+      if (personRecordId) {
+        await updateWaitlistEmailStatus(apiKey, listIdentifier, personRecordId, "skipped");
+      }
       return { ok: true, alreadyRegistered: true };
     }
 
-    // 4. Send confirmation email for new signup (await so Vercel serverless doesn't freeze before completion)
+    // 6. Send confirmation email for new signup and record email_status attribute on waitlist entry
     try {
-      await sendWaitlistConfirmation(email);
+      const emailResult = await sendWaitlistConfirmation(email);
+
+      if (personRecordId) {
+        if (emailResult.success) {
+          await updateWaitlistEmailStatus(apiKey, listIdentifier, personRecordId, "sent");
+        } else {
+          await updateWaitlistEmailStatus(
+            apiKey,
+            listIdentifier,
+            personRecordId,
+            "failed",
+            emailResult.error
+          );
+        }
+      }
     } catch (emailErr) {
-      console.error("Confirmation email error:", emailErr);
+      console.error("[Waitlist Flow] Unhandled confirmation email exception:", emailErr);
+      if (personRecordId) {
+        await updateWaitlistEmailStatus(
+          apiKey,
+          listIdentifier,
+          personRecordId,
+          "failed",
+          emailErr instanceof Error ? emailErr.message : String(emailErr)
+        );
+      }
     }
 
     return { ok: true, alreadyRegistered: false };

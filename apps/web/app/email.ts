@@ -1,17 +1,25 @@
 import nodemailer from "nodemailer";
+import { LOGO_BASE64 } from "./logo-base64";
+
+export interface EmailSendResult {
+  success: boolean;
+  messageId?: string;
+  error?: string;
+  details?: Record<string, unknown>;
+  timestamp: string;
+}
 
 function getTransporter() {
-  // Purelymail SMTP Authentication using primary account user + pass
   const host = process.env.SMTP_HOST || "smtp.purelymail.com";
   const port = Number(process.env.SMTP_PORT || 465);
   const user = process.env.PURELYMAIL_USER || process.env.SMTP_USER;
   const pass = process.env.PURELYMAIL_PASSWORD || process.env.SMTP_PASS;
 
   if (!user || !pass) {
-    return null;
+    return { transporter: null, missingCredentials: true };
   }
 
-  return nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host,
     port,
     secure: port === 465,
@@ -20,6 +28,8 @@ function getTransporter() {
     greetingTimeout: 10000,
     socketTimeout: 15000,
   });
+
+  return { transporter, missingCredentials: false, host, port, user };
 }
 
 export function generateWaitlistEmailHtml() {
@@ -95,21 +105,26 @@ export function generateWaitlistEmailHtml() {
 </html>`;
 }
 
-export async function sendWaitlistConfirmation(toEmail: string) {
-  const transporter = getTransporter();
-  if (!transporter) {
-    console.warn(
-      "Purelymail SMTP credentials missing (PURELYMAIL_USER / PURELYMAIL_PASSWORD). Skipping confirmation email."
-    );
-    return;
+export async function sendWaitlistConfirmation(toEmail: string): Promise<EmailSendResult> {
+  const timestamp = new Date().toISOString();
+  console.log(`[Email Dispatch] [${timestamp}] Starting confirmation email flow for: ${toEmail}`);
+
+  const { transporter, missingCredentials, host, port, user } = getTransporter();
+
+  if (missingCredentials || !transporter) {
+    const errorMsg = "SMTP credentials missing (PURELYMAIL_USER / PURELYMAIL_PASSWORD not set in environment).";
+    console.error(`[Email Dispatch] [${timestamp}] Error: ${errorMsg}`);
+    return {
+      success: false,
+      error: errorMsg,
+      timestamp,
+    };
   }
 
-  // Sender & Reply-To alias (e.g. hello@soundgoose.com)
   const fromEmail = process.env.EMAIL_FROM_ADDRESS || "hello@soundgoose.com";
   const fromHeader = `"Sound Goose" <${fromEmail}>`;
 
   const htmlContent = generateWaitlistEmailHtml();
-
   const textContent = `Sound Goose
 
 You're on the list, gosling.
@@ -122,10 +137,14 @@ Team Sound Goose — https://soundgoose.com
 `;
 
   try {
-    const path = await import("path");
-    const logoAttachmentPath = path.join(process.cwd(), "public", "logo.png");
+    console.log(
+      `[Email Dispatch] Connecting to SMTP server ${host}:${port} as ${user} (sending from ${fromHeader})`
+    );
 
-    await transporter.sendMail({
+    // Using in-memory Buffer from LOGO_BASE64 to avoid filesystem/CWD resolution bugs in Vercel serverless
+    const logoBuffer = Buffer.from(LOGO_BASE64, "base64");
+
+    const info = await transporter.sendMail({
       from: fromHeader,
       replyTo: fromEmail,
       to: toEmail,
@@ -135,13 +154,37 @@ Team Sound Goose — https://soundgoose.com
       attachments: [
         {
           filename: "logo.png",
-          path: logoAttachmentPath,
+          content: logoBuffer,
           cid: "soundgoose-logo",
         },
       ],
     });
-    console.log(`Confirmation email sent via Purelymail to ${toEmail}`);
-  } catch (err) {
-    console.error("Failed to send confirmation email:", err);
+
+    console.log(
+      `[Email Dispatch] [SUCCESS] Email delivered to Purelymail queue for ${toEmail}. Message ID: ${info.messageId}`
+    );
+
+    return {
+      success: true,
+      messageId: info.messageId,
+      timestamp,
+      details: {
+        envelope: info.envelope,
+        accepted: info.accepted,
+      },
+    };
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+    console.error(`[Email Dispatch] [FAILURE] Error sending email to ${toEmail}:`, errorMessage);
+    if (errorStack) {
+      console.error(`[Email Dispatch] Error Stack:`, errorStack);
+    }
+
+    return {
+      success: false,
+      error: errorMessage,
+      timestamp,
+    };
   }
 }
