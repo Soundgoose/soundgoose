@@ -105,14 +105,20 @@ export function generateWaitlistEmailHtml() {
 </html>`;
 }
 
-export async function sendWaitlistConfirmation(toEmail: string): Promise<EmailSendResult> {
+export async function sendWaitlistConfirmation(
+  toEmail: string,
+): Promise<EmailSendResult> {
   const timestamp = new Date().toISOString();
-  console.log(`[Email Dispatch] [${timestamp}] Starting confirmation email flow for: ${toEmail}`);
+  console.log(
+    `[Email Dispatch] [${timestamp}] Starting confirmation email flow for: ${toEmail}`,
+  );
 
-  const { transporter, missingCredentials, host, port, user } = getTransporter();
+  const { transporter, missingCredentials, host, port, user } =
+    getTransporter();
 
   if (missingCredentials || !transporter) {
-    const errorMsg = "SMTP credentials missing (PURELYMAIL_USER / PURELYMAIL_PASSWORD not set in environment).";
+    const errorMsg =
+      "SMTP credentials missing (PURELYMAIL_USER / PURELYMAIL_PASSWORD not set in environment).";
     console.error(`[Email Dispatch] [${timestamp}] Error: ${errorMsg}`);
     return {
       success: false,
@@ -138,7 +144,7 @@ Team Sound Goose — https://soundgoose.com
 
   try {
     console.log(
-      `[Email Dispatch] Connecting to SMTP server ${host}:${port} as ${user} (sending from ${fromHeader})`
+      `[Email Dispatch] Connecting to SMTP server ${host}:${port} as ${user} (sending from ${fromHeader})`,
     );
 
     // Using in-memory Buffer from LOGO_BASE64 to avoid filesystem/CWD resolution bugs in Vercel serverless
@@ -161,7 +167,7 @@ Team Sound Goose — https://soundgoose.com
     });
 
     console.log(
-      `[Email Dispatch] [SUCCESS] Email delivered to Purelymail queue for ${toEmail}. Message ID: ${info.messageId}`
+      `[Email Dispatch] [SUCCESS] Email delivered to Purelymail queue for ${toEmail}. Message ID: ${info.messageId}`,
     );
 
     return {
@@ -176,7 +182,10 @@ Team Sound Goose — https://soundgoose.com
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : String(err);
     const errorStack = err instanceof Error ? err.stack : undefined;
-    console.error(`[Email Dispatch] [FAILURE] Error sending email to ${toEmail}:`, errorMessage);
+    console.error(
+      `[Email Dispatch] [FAILURE] Error sending email to ${toEmail}:`,
+      errorMessage,
+    );
     if (errorStack) {
       console.error(`[Email Dispatch] Error Stack:`, errorStack);
     }
