@@ -240,33 +240,46 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         </div>
       )}
 
-      {headings.length > 0 && <TableOfContents headings={headings} />}
+      {/* 2-Column Layout: Content on Left, Sticky Table of Contents on Right */}
+      <div className={styles.contentLayout}>
+        <div className={styles.mainContent}>
+          <div className={styles.body}>
+            {post.body && (
+              <PortableText
+                value={post.body}
+                components={portableTextComponents}
+              />
+            )}
+          </div>
 
-      <div className={styles.body}>
-        {post.body && (
-          <PortableText value={post.body} components={portableTextComponents} />
+          <div className={styles.authorBioCard}>
+            <div className={styles.bioAvatar}>{authorInitials}</div>
+            <div>
+              <h3 className={styles.bioName}>
+                {post.author?.name || "Sound Goose Team"}
+              </h3>
+              <p className={styles.bioText}>
+                {post.author?.bio ||
+                  "Engineers and sound designers at Sound Goose, rethinking spatial audio, browser acoustics, and collaborative creation."}
+              </p>
+            </div>
+          </div>
+
+          <footer className={styles.footerNav}>
+            <Link href="/blog" className={styles.backButton}>
+              ← Back to all dispatches
+            </Link>
+          </footer>
+        </div>
+
+        {headings.length > 0 && (
+          <aside className={styles.sidebar}>
+            <div className={styles.stickySidebar}>
+              <TableOfContents headings={headings} />
+            </div>
+          </aside>
         )}
       </div>
-
-      <div className={styles.authorBioCard}>
-        <div className={styles.bioAvatar}>{authorInitials}</div>
-        <div>
-          <h3 className={styles.bioName}>
-            {post.author?.name || "Sound Goose Team"}
-          </h3>
-          <p className={styles.bioText}>
-            {post.author?.bio ||
-              "Engineers and sound designers at Sound Goose, rethinking spatial audio, browser acoustics, and collaborative creation."}
-          </p>
-        </div>
-      </div>
-
-      <footer className={styles.footerNav}>
-        <Link href="/blog" className={styles.backButton}>
-          ← Back to all dispatches
-        </Link>
-        <ShareButtons title={post.title} url={articleUrl} />
-      </footer>
     </article>
   );
 }

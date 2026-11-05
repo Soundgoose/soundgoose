@@ -18,7 +18,10 @@ export function extractHeadings(body: any): HeadingItem[] {
   const headings: HeadingItem[] = [];
 
   for (const block of body) {
-    if (block?._type === "block" && (block.style === "h2" || block.style === "h3")) {
+    if (
+      block?._type === "block" &&
+      (block.style === "h2" || block.style === "h3")
+    ) {
       const text = (block.children || [])
         .map((child: any) => child?.text || "")
         .join("")

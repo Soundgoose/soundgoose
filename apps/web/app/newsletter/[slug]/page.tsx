@@ -208,23 +208,33 @@ export default async function NewsletterIssuePage({
         </section>
       )}
 
-      {headings.length > 0 && <TableOfContents headings={headings} />}
+      {/* 2-Column Layout: Content on Left, Sticky Table of Contents on Right */}
+      <div className={styles.contentLayout}>
+        <div className={styles.mainContent}>
+          <div className={styles.body}>
+            {issue.fullBody && (
+              <PortableText
+                value={issue.fullBody}
+                components={portableTextComponents}
+              />
+            )}
+          </div>
 
-      <div className={styles.body}>
-        {issue.fullBody && (
-          <PortableText
-            value={issue.fullBody}
-            components={portableTextComponents}
-          />
+          <footer className={styles.footerNav}>
+            <Link href="/newsletter" className={styles.backButton}>
+              ← Back to all editions
+            </Link>
+          </footer>
+        </div>
+
+        {headings.length > 0 && (
+          <aside className={styles.sidebar}>
+            <div className={styles.stickySidebar}>
+              <TableOfContents headings={headings} />
+            </div>
+          </aside>
         )}
       </div>
-
-      <footer className={styles.footerNav}>
-        <Link href="/newsletter" className={styles.backButton}>
-          ← Back to all editions
-        </Link>
-        <ShareButtons title={issue.title} url={issueUrl} />
-      </footer>
     </article>
   );
 }
