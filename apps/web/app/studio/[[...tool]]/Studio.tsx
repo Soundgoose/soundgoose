@@ -241,18 +241,6 @@ export function Studio() {
             {isLoading ? "Verifying..." : "Unlock Studio →"}
           </button>
         </form>
-
-        <p
-          style={{
-            fontSize: "0.75rem",
-            color: "#9e8578",
-            marginTop: "1.5rem",
-            marginBottom: 0,
-          }}
-        >
-          Default passcode: <code>soundgoose</code> (configure via{" "}
-          <code>STUDIO_PASSCODE</code>)
-        </p>
       </div>
     </div>
   );

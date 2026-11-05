@@ -208,8 +208,10 @@ export default async function NewsletterIssuePage({
         </section>
       )}
 
-      {/* 2-Column Layout: Content on Left, Sticky Table of Contents on Right */}
-      <div className={styles.contentLayout}>
+      {/* 2-Column Layout when headings exist; single centered column otherwise */}
+      <div
+        className={`${styles.contentLayout} ${headings.length > 0 ? styles.hasSidebar : ""}`}
+      >
         <div className={styles.mainContent}>
           <div className={styles.body}>
             {issue.fullBody && (

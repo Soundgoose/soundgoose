@@ -127,10 +127,12 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem;
+  max-width: 820px;
 }
 
 @media (min-width: 992px) {
-  .contentLayout {
+  .contentLayout.hasSidebar {
+    max-width: 1140px;
     grid-template-columns: minmax(0, 780px) 280px;
     gap: 3.5rem;
     align-items: start;

@@ -22,6 +22,11 @@ export function middleware(request: NextRequest) {
 
   // Studio Subdomain Routing (without browser pop-up auth or redirect)
   if (isStudio) {
+    // API endpoints (e.g. /api/studio/auth) should never be rewritten
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.next();
+    }
+
     // If redundant /studio requested on studio subdomain, normalize to /
     if (pathname === "/studio" || pathname.startsWith("/studio/")) {
       const cleanPath = pathname.replace(/^\/studio/, "") || "/";
