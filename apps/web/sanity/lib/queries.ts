@@ -30,6 +30,13 @@ export interface BlogPost {
   };
 }
 
+export interface QuickBiteSignal {
+  title: string;
+  testedObservation: string;
+  recommendation: string;
+  link?: string;
+}
+
 export interface NewsletterIssue {
   _id: string;
   issueNumber: number;
@@ -37,9 +44,17 @@ export interface NewsletterIssue {
   slug: { current: string };
   publishedAt: string;
   coverImage?: any;
+  metaDescription?: string;
+  author?: Author;
   emailSubject: string;
   emailExcerpt: string;
+  tldr?: string[];
+  personalizedIntro?: string;
   fullBody?: any;
+  quickBites?: QuickBiteSignal[];
+  actionableNextStep?: string;
+  canonicalCtaLabel?: string;
+  canonicalCtaUrl?: string;
   broadcastStatus?: "draft" | "ready" | "sent";
   broadcastSentAt?: string;
 }
@@ -78,8 +93,12 @@ export const newslettersQuery = groq`*[_type == "newsletter" && defined(slug.cur
   slug,
   publishedAt,
   coverImage,
+  metaDescription,
+  "author": author->{name, slug, image, bio},
   emailSubject,
   emailExcerpt,
+  tldr,
+  actionableNextStep,
   broadcastStatus,
   broadcastSentAt
 }`;
@@ -91,9 +110,17 @@ export const newsletterBySlugQuery = groq`*[_type == "newsletter" && slug.curren
   slug,
   publishedAt,
   coverImage,
+  metaDescription,
+  "author": author->{name, slug, image, bio},
   emailSubject,
   emailExcerpt,
+  tldr,
+  personalizedIntro,
   fullBody,
+  quickBites,
+  actionableNextStep,
+  canonicalCtaLabel,
+  canonicalCtaUrl,
   broadcastStatus,
   broadcastSentAt
 }`;
@@ -175,51 +202,213 @@ const FALLBACK_POSTS: BlogPost[] = [
 
 const FALLBACK_NEWSLETTERS: NewsletterIssue[] = [
   {
-    _id: "seed-issue-1",
-    issueNumber: 1,
-    title: "Issue #1: The Sound Goose Journey Begins",
-    slug: { current: "issue-1-the-journey-begins" },
-    publishedAt: new Date("2026-10-20").toISOString(),
-    emailSubject: "Sound Goose Issue #1: Breaking the Timeline Barrier",
+    _id: "seed-issue-2",
+    issueNumber: 2,
+    title: "Zero-GC Convolution Reverb: Simulating Physical Rooms in Real Time",
+    slug: { current: "zero-gc-convolution-reverb" },
+    publishedAt: new Date("2026-11-02T10:00:00.000Z").toISOString(),
+    metaDescription:
+      "How to simulate physical room acoustics in WebAudio without garbage collection spikes. Real-time impulse response partitioning for web sound designers.",
+    author: {
+      name: "Rachit Agarwal",
+      bio: "Founder & Lead Audio Systems Engineer at Sound Goose",
+    },
+    emailSubject: "Sound Goose #2: Zero-GC Convolution Reverb at 60 FPS",
     emailExcerpt:
-      "Welcome to the first edition of the Sound Goose Dispatch! In this issue, we take you behind the scenes of our initial sound engine benchmarks, announce our private beta timeline, and share 3 tips for crisp binaural mixes.",
-    broadcastStatus: "sent",
-    broadcastSentAt: new Date("2026-10-20").toISOString(),
+      "Issue #2 explores physical room impulse responses, segmented frequency-domain convolution, and eliminating V8 GC pauses during live audio collaboration.",
+    tldr: [
+      "Direct time-domain convolution scales O(N*M), consuming 100% of CPU headroom for impulse responses longer than 2 seconds.",
+      "Uniformly partitioned overlap-save FFT algorithms deliver studio-quality acoustics within a constant 128-sample budget.",
+      "Pre-allocated WebAssembly memory heaps prevent memory fragmentation during dynamic spatial emitter movement.",
+    ],
+    personalizedIntro:
+      "Acoustic realism lives or dies by reverberation. In traditional DAWs, loading an impulse response from a historic hall is trivial. In a collaborative web app with creators moving sound emitters simultaneously, standard ConvolverNodes quickly choke the audio thread. Here is how partitioned convolution solves this.",
     fullBody: [
       {
         _type: "block",
+        style: "normal",
         children: [
           {
             _type: "span",
-            text: "Welcome to our inaugural Sound Goose Dispatch! We are thrilled to have hundreds of early audio creators following along as we craft the future of interactive sound.",
+            text: "Reverberation is what grounds sound in physical reality. Without acoustic reflections, audio emitters feel clinical, disconnected, and artificial.",
           },
         ],
         markDefs: [],
-        style: "normal",
       },
       {
         _type: "block",
-        children: [
-          {
-            _type: "span",
-            text: "Behind the Scenes: WebAudio Engine Benchmarks",
-          },
-        ],
-        markDefs: [],
         style: "h2",
-      },
-      {
-        _type: "block",
         children: [
           {
             _type: "span",
-            text: "We spent the last month optimizing our real-time convolution reverb worker. Latency is now down to under 6ms on modern browsers, unlocking truly imperceptible acoustic simulations.",
+            text: "The Physics of Impulse Responses and CPU Bottlenecks",
           },
         ],
         markDefs: [],
+      },
+      {
+        _type: "block",
         style: "normal",
+        children: [
+          {
+            _type: "span",
+            text: "An impulse response (IR) captures how a physical space reflects acoustic energy across time. When you convolve incoming dry audio with a 3-second stereo impulse response at 48kHz, the CPU must compute over 280,000 multiply-accumulate operations for every single output sample.",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "h3",
+        children: [
+          {
+            _type: "span",
+            text: "Why Standard ConvolverNodes Fail Under Multi-Emitter Loads",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "normal",
+        children: [
+          {
+            _type: "span",
+            text: "WebAudio ConvolverNodes work well for static stereo stems. But when users drag emitters around a canvas, updating distance falloff and room sends in real time triggers memory allocations that force JavaScript engine GC pauses.",
+          },
+        ],
+        markDefs: [],
       },
     ],
+    quickBites: [
+      {
+        title: "Impulse response tail truncation",
+        testedObservation:
+          "Reverberation tails beyond -60dB (RT60) are completely inaudible beneath ambient noise but consume 45% of convolution CPU cycles.",
+        recommendation:
+          "Truncate impulse buffers at the -60dB threshold with an exponential decay curve to recover nearly half your compute headroom.",
+        link: "https://www.w3.org/TR/webaudio/",
+      },
+    ],
+    actionableNextStep:
+      "Audit your reverb decay envelopes. Truncate impulse assets where tail energy drops below -60dB to free up DSP overhead.",
+    canonicalCtaLabel: "Request Sound Goose Early Access",
+    canonicalCtaUrl: "/#waitlist",
+    broadcastStatus: "sent",
+    broadcastSentAt: new Date("2026-11-02T10:00:00.000Z").toISOString(),
+  },
+  {
+    _id: "seed-issue-1",
+    issueNumber: 1,
+    title:
+      "Low-Latency Spatial Audio in the Browser: The WebAudio Worklet Blueprint",
+    slug: { current: "low-latency-spatial-audio-in-the-browser" },
+    publishedAt: new Date("2026-10-20T10:00:00.000Z").toISOString(),
+    metaDescription:
+      "How we achieved sub-6ms browser acoustics using AudioWorklet and SharedArrayBuffer. Practical architecture for spatial audio without garbage collection pauses.",
+    author: {
+      name: "Rachit Agarwal",
+      bio: "Founder & Lead Audio Systems Engineer at Sound Goose",
+    },
+    emailSubject: "Sound Goose #1: Sub-6ms Spatial Audio in the Browser",
+    emailExcerpt:
+      "In our inaugural technical dispatch, we break down our WebAudio Worklet architecture, zero-allocation circular audio rings, and 3 measured takeaways for real-time web audio.",
+    tldr: [
+      "Direct main-thread WebAudio processing introduces unpreventable frame jitter and audio glitches whenever React renders.",
+      "Offloading DSP into AudioWorklet processors with pre-allocated SharedArrayBuffers cuts round-trip acoustic latency to 5.8ms.",
+      "Circular ring buffers bypass the JavaScript garbage collector entirely, maintaining a rock-solid 60 FPS audio rendering loop.",
+    ],
+    personalizedIntro:
+      "When we set out to build Sound Goose, every audio engineer told us the browser could not handle studio-grade acoustic simulation in real time. They were almost right: if you rely on standard ScriptProcessorNodes or main-thread state trees, audio buffers hitch whenever the UI recalibrates. Here is the exact pipeline we built to break through that barrier.",
+    fullBody: [
+      {
+        _type: "block",
+        style: "normal",
+        children: [
+          {
+            _type: "span",
+            text: "Sound Goose was founded to replace fragmented, offline audio production workflows with a fluid, collaborative spatial canvas. To make spatial sound feel tactile, latency must remain beneath 10 milliseconds.",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "h2",
+        children: [
+          {
+            _type: "span",
+            text: "The Hidden Cost of Main-Thread Audio Scheduling",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "normal",
+        children: [
+          {
+            _type: "span",
+            text: "Browsers execute DOM rendering, style recalculation, and UI handlers on a single execution thread. When an audio callback shares that loop, even a minor layout thrash causes buffer underruns, audible clicks, and phase distortion.",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "h3",
+        children: [
+          {
+            _type: "span",
+            text: "Moving to Dedicated AudioWorklet Global Scopes",
+          },
+        ],
+        markDefs: [],
+      },
+      {
+        _type: "block",
+        style: "normal",
+        children: [
+          {
+            _type: "span",
+            text: "The WebAudio AudioWorklet specification provisions a synchronous, high-priority audio rendering thread that operates independently from the main JavaScript runtime. By keeping computation inside process() strictly bounded to 128 frames, underrun rates drop to zero.",
+          },
+        ],
+        markDefs: [],
+      },
+    ],
+    quickBites: [
+      {
+        title: "AudioWorklet MessagePort serialization overhead",
+        testedObservation:
+          "Posting Float32Array chunks across standard postMessage channels took 3.2ms per tick on mobile Safari.",
+        recommendation:
+          "Swap postMessage for SharedArrayBuffer with Atomics to achieve 0.1ms lock-free transfer speeds.",
+        link: "https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode",
+      },
+      {
+        title: "Browser sample rate mismatch penalties",
+        testedObservation:
+          "Requesting a 48kHz audio context on a 44.1kHz hardware interface triggers hidden browser resamplers that add 12ms of phase delay.",
+        recommendation:
+          "Initialize AudioContext without an explicit sampleRate, letting the hardware define the master clock, and resample source assets in workers.",
+        link: "https://www.w3.org/TR/webaudio/",
+      },
+      {
+        title: "Linear distance falloff vs. inverse-square acoustics",
+        testedObservation:
+          "Linear gain attenuation sounds artificial and destroys spatial depth perception in stereo headsets.",
+        recommendation:
+          "Adopt an inverse-distance clamped curve with a roll-off factor of 1.2 to preserve natural acoustic room presence.",
+        link: "https://soundgoose.com",
+      },
+    ],
+    actionableNextStep:
+      "Open your browser console on your current audio project and inspect new AudioContext().baseLatency. If it exceeds 10ms, audit your node graph for redundant script processors.",
+    canonicalCtaLabel: "Test the Sound Goose Spatial Canvas",
+    canonicalCtaUrl: "/#waitlist",
+    broadcastStatus: "sent",
+    broadcastSentAt: new Date("2026-10-20T10:00:00.000Z").toISOString(),
   },
 ];
 
@@ -317,4 +506,24 @@ export async function getNewsletterSlugs(): Promise<string[]> {
   } catch (err) {
     return FALLBACK_NEWSLETTERS.map((n) => n.slug.current);
   }
+}
+
+export async function getAdjacentNewsletterIssues(
+  currentIssueNumber: number,
+): Promise<{
+  prev: NewsletterIssue | null;
+  next: NewsletterIssue | null;
+}> {
+  const all = await getNewsletterIssues();
+  const sorted = [...all].sort((a, b) => a.issueNumber - b.issueNumber);
+  const currentIndex = sorted.findIndex(
+    (item) => item.issueNumber === currentIssueNumber,
+  );
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+  return {
+    prev: currentIndex > 0 ? sorted[currentIndex - 1]! : null,
+    next: currentIndex < sorted.length - 1 ? sorted[currentIndex + 1]! : null,
+  };
 }

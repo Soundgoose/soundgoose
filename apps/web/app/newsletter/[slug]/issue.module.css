@@ -23,6 +23,8 @@
   color: var(--brand);
 }
 
+/* ─── Part 1: Header & Web Metadata ─── */
+
 .header {
   margin-bottom: 2.5rem;
   max-width: 820px;
@@ -57,10 +59,10 @@
 
 .title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.25rem);
+  font-size: clamp(2.1rem, 4.5vw, 3.1rem);
   font-weight: 700;
   color: var(--brand);
-  line-height: 1.15;
+  line-height: 1.18;
   letter-spacing: -0.025em;
   margin-bottom: 1.5rem;
 }
@@ -81,7 +83,7 @@
   margin-right: 0.5rem;
 }
 
-.actionBar {
+.bylineCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -92,36 +94,107 @@
   flex-wrap: wrap;
 }
 
-.date {
+.authorWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.authorAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
   font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.authorName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.authorBio {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.date {
+  font-size: 0.82rem;
   color: var(--text-tertiary);
 }
 
-.teaserCallout {
-  background: rgba(229, 218, 208, 0.4);
-  border-left: 3px solid #d9a689;
-  padding: 1.75rem 2rem;
-  border-radius: 0 10px 10px 0;
-  margin: 2.5rem 0 3rem 0;
+/* ─── Part 2: The Hook & Executive Summary (AEO Focus) ─── */
+
+.hookSection {
+  max-width: 820px;
+  margin: 2.5rem 0 3.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 
-.teaserEyebrow {
+.tldrCard {
+  background: #faf7f4;
+  border: 1px solid rgba(115, 81, 61, 0.22);
+  border-left: 4px solid var(--brand);
+  border-radius: 8px;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 4px 16px rgba(64, 39, 30, 0.04);
+}
+
+.tldrHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.tldrBadge {
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-weight: 800;
   color: var(--brand);
-  margin-bottom: 0.6rem;
 }
 
-.teaserText {
-  font-size: 1.1rem;
-  line-height: 1.75;
+.tldrList {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tldrItem {
+  font-size: 1.02rem;
+  line-height: 1.65;
   color: #2b1d16;
-  font-style: italic;
 }
 
-/* ─── 2-Column Content Layout (Content on Left, TOC on Right) ─── */
+.personalizedIntro {
+  font-size: 1.12rem;
+  line-height: 1.8;
+  color: #2b1d16;
+  padding: 1.25rem 1.5rem;
+  background: rgba(229, 218, 208, 0.35);
+  border-radius: 8px;
+  border-left: 3px solid #d9a689;
+}
+
+/* ─── Part 3: Main Feature / Deep Dive (2-Column Layout) ─── */
 
 .contentLayout {
   display: grid;
@@ -158,13 +231,265 @@
   color: #2b1d16;
 }
 
+/* ─── Part 4: Quick Bites / Curated Signals ─── */
+
+.quickBitesSection {
+  margin-top: 4.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+  max-width: 820px;
+}
+
+.sectionHeader {
+  margin-bottom: 2rem;
+}
+
+.sectionEyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 0.4rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--brand);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem 0;
+}
+
+.sectionSubtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.signalGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.signalCard {
+  background: #faf7f4;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 16px rgba(64, 39, 30, 0.04);
+}
+
+.signalTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.signalComparison {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .signalComparison {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.observedBlock {
+  background: rgba(217, 166, 137, 0.18);
+  border-left: 3px solid #b37356;
+  border-radius: 0 6px 6px 0;
+  padding: 1rem;
+}
+
+.recommendedBlock {
+  background: rgba(64, 39, 30, 0.06);
+  border-left: 3px solid #40271e;
+  border-radius: 0 6px 6px 0;
+  padding: 1rem;
+}
+
+.signalBlockLabel {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 0.4rem;
+}
+
+.signalText {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #2b1d16;
+}
+
+.signalLink {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.signalLink:hover {
+  opacity: 0.8;
+}
+
+/* ─── Part 5: Outro & Canonical CTA ─── */
+
+.outroSection {
+  margin-top: 4.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.actionableCard {
+  background: #faf7f4;
+  border: 1px solid rgba(115, 81, 61, 0.25);
+  border-radius: 10px;
+  padding: 1.75rem 2rem;
+}
+
+.actionableEyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 0.6rem;
+}
+
+.actionableText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2b1d16;
+  margin: 0;
+}
+
+.canonicalCtaCard {
+  background: linear-gradient(135deg, #40271e 0%, #2b1d16 100%);
+  border-radius: 12px;
+  padding: 2.25rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.canonicalCtaTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.canonicalCtaText {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 620px;
+}
+
+.canonicalButton {
+  background: #ffffff;
+  color: #40271e;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+  display: inline-block;
+}
+
+.canonicalButton:hover {
+  opacity: 0.92;
+}
+
+/* ─── Internal Linking Loops (Chronological Prev / Next) ─── */
+
+.internalLoopSection {
+  margin-top: 1rem;
+}
+
+.internalLoopNav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .internalLoopNav {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.loopCard {
+  background: #faf7f4;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.loopCard:hover {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+}
+
+.loopLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.loopTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1.4;
+  margin: 0;
+}
+
 .footerNav {
-  margin-top: 3.5rem;
-  padding-top: 2rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  max-width: 780px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .backButton {
@@ -186,7 +511,10 @@
   .articleContainer {
     padding: 2rem 1rem 4rem 1rem;
   }
-  .teaserCallout {
+  .tldrCard {
     padding: 1.25rem 1.25rem;
+  }
+  .canonicalCtaCard {
+    padding: 1.5rem;
   }
 }

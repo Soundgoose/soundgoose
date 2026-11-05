@@ -5,7 +5,15 @@ import { generateNewsletterEmailHtml } from "../../../components/newsletter-emai
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { issueNumber, title, slug, emailExcerpt, secretKey } = body;
+    const {
+      issueNumber,
+      title,
+      slug,
+      emailExcerpt,
+      tldr,
+      actionableNextStep,
+      secretKey,
+    } = body;
 
     const expectedSecret =
       process.env.NEWSLETTER_BROADCAST_SECRET ||
@@ -48,6 +56,8 @@ export async function POST(request: Request) {
       title,
       slug,
       emailExcerpt,
+      tldr,
+      actionableNextStep,
     });
 
     const fromAddress =

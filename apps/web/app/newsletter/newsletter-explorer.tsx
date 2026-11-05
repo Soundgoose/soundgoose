@@ -103,7 +103,9 @@ export function NewsletterExplorer({ issues }: NewsletterExplorerProps) {
                   </div>
                 )}
 
-                <p className={styles.issueExcerpt}>{issue.emailExcerpt}</p>
+                <p className={styles.issueExcerpt}>
+                  {issue.metaDescription || issue.emailExcerpt}
+                </p>
 
                 <div className={styles.cardFooter}>
                   <span>Read Full Edition</span>

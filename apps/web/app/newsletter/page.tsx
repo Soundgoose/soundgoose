@@ -6,14 +6,14 @@ import styles from "./newsletter.module.css";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "The Sound Goose Dispatch — Production & Acoustic Letters",
+  title: "The Sound Goose Dispatch: Production & Acoustic Letters",
   description:
     "An archive of the Sound Goose Dispatch covering spatial sound design, browser audio performance, and engine updates.",
   alternates: {
     canonical: "https://soundgoose.com/newsletter",
   },
   openGraph: {
-    title: "The Sound Goose Dispatch — Issue Archive",
+    title: "The Sound Goose Dispatch: Issue Archive",
     description:
       "An archive of the Sound Goose Dispatch covering spatial sound design and browser audio performance.",
     url: "https://soundgoose.com/newsletter",

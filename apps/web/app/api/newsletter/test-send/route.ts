@@ -7,7 +7,15 @@ import { LOGO_BASE64 } from "../../../logo-base64";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { testEmail, issueNumber, title, slug, emailExcerpt } = body;
+    const {
+      testEmail,
+      issueNumber,
+      title,
+      slug,
+      emailExcerpt,
+      tldr,
+      actionableNextStep,
+    } = body;
 
     if (!testEmail || !testEmail.includes("@")) {
       return NextResponse.json(
@@ -31,6 +39,8 @@ export async function POST(request: Request) {
       title,
       slug,
       emailExcerpt,
+      tldr,
+      actionableNextStep,
     });
 
     const fromAddress =
