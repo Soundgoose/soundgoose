@@ -1,83 +1,144 @@
 .container {
-  max-width: 960px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 5rem 1.5rem;
+  padding: 3.5rem 1.5rem 6rem 1.5rem;
 }
 
 .hero {
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
   border-bottom: 1px solid var(--border);
   padding-bottom: 2.5rem;
 }
 
+.heroMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
 .eyebrow {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-secondary);
-  margin-bottom: 0.75rem;
+  background: rgba(217, 166, 137, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.countBadge {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.25rem);
+  font-size: clamp(2.4rem, 5.5vw, 3.5rem);
   font-weight: 700;
   color: var(--brand);
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin-bottom: 1rem;
 }
 
 .description {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 620px;
-  line-height: 1.6;
+  max-width: 680px;
+  line-height: 1.65;
 }
 
-.archiveSection {
-  margin-top: 3.5rem;
+/* ─── Search & Toolbar ────────────────────────────────────────── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  background: #faf7f4;
+  border: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
 }
 
-.sectionTitle {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--brand);
-  margin-bottom: 1.5rem;
+.searchBox {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
 }
 
-.issuesList {
+.searchInput {
+  width: 100%;
+  padding: 0.55rem 1rem 0.55rem 2.25rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--brand);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.archiveNote {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ─── Issues Timeline ────────────────────────────────────────── */
+
+.timeline {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .issueCard {
   background: #faf7f4;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.75rem 2rem;
-  display: flex;
-  flex-direction: column;
+  border-radius: 12px;
+  padding: 2rem 2.25rem;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .issueCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(64, 39, 30, 0.06);
+  box-shadow: 0 10px 24px rgba(64, 39, 30, 0.07);
   border-color: var(--border-strong);
 }
 
-.issueHeader {
+.cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .issueBadge {
@@ -85,52 +146,88 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--brand);
-  background: rgba(217, 166, 137, 0.25);
-  padding: 0.2rem 0.65rem;
+  background: rgba(217, 166, 137, 0.3);
+  padding: 0.2rem 0.7rem;
   border-radius: 4px;
 }
 
+.readTime {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
 .issueDate {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-tertiary);
 }
 
 .issueTitle {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--brand);
-  line-height: 1.3;
+  line-height: 1.25;
   margin-bottom: 0.75rem;
 }
 
-.issueExcerpt {
-  font-size: 0.95rem;
+.subjectLineBox {
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  background: rgba(238, 229, 220, 0.45);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border-left: 2px solid #d9a689;
+}
+
+.subjectLabel {
+  font-weight: 600;
+  color: var(--brand);
+  margin-right: 0.5rem;
+}
+
+.issueExcerpt {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
   margin-bottom: 1.25rem;
 }
 
-.readIssueLink {
-  align-self: flex-start;
-  font-size: 0.9rem;
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--brand);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
 }
 
-.issueCard:hover .readIssueLink {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.readArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.15s ease;
+}
+
+.issueCard:hover .readArrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 640px) {
   .container {
-    padding: 2rem 1rem 3.5rem 1rem;
+    padding: 2rem 1rem 4rem 1rem;
   }
   .issueCard {
-    padding: 1.25rem 1.25rem;
+    padding: 1.5rem 1.25rem;
+  }
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .searchBox {
+    max-width: 100%;
   }
 }

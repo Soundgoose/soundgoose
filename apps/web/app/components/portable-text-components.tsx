@@ -2,6 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableTextComponents } from "@portabletext/react";
 import { urlForImage } from "../../sanity/lib/image";
+import { slugify } from "../lib/toc";
+
+function extractText(node: any): string {
+  if (!node) return "";
+  if (typeof node === "string") return node;
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (node.props?.children) return extractText(node.props.children);
+  return String(node);
+}
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
@@ -63,40 +72,51 @@ export const portableTextComponents: PortableTextComponents = {
           margin: "36px 0 16px 0",
           lineHeight: 1.25,
           letterSpacing: "-0.02em",
+          scrollMarginTop: "90px",
         }}
       >
         {children}
       </h1>
     ),
-    h2: ({ children }) => (
-      <h2
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "1.6rem",
-          fontWeight: 600,
-          color: "var(--brand)",
-          margin: "32px 0 14px 0",
-          lineHeight: 1.3,
-          letterSpacing: "-0.015em",
-        }}
-      >
-        {children}
-      </h2>
-    ),
-    h3: ({ children }) => (
-      <h3
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "1.25rem",
-          fontWeight: 600,
-          color: "var(--brand)",
-          margin: "24px 0 10px 0",
-          lineHeight: 1.4,
-        }}
-      >
-        {children}
-      </h3>
-    ),
+    h2: ({ children }) => {
+      const id = slugify(extractText(children));
+      return (
+        <h2
+          id={id}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.6rem",
+            fontWeight: 600,
+            color: "var(--brand)",
+            margin: "36px 0 14px 0",
+            lineHeight: 1.3,
+            letterSpacing: "-0.015em",
+            scrollMarginTop: "90px",
+          }}
+        >
+          {children}
+        </h2>
+      );
+    },
+    h3: ({ children }) => {
+      const id = slugify(extractText(children));
+      return (
+        <h3
+          id={id}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.25rem",
+            fontWeight: 600,
+            color: "var(--brand)",
+            margin: "26px 0 10px 0",
+            lineHeight: 1.4,
+            scrollMarginTop: "90px",
+          }}
+        >
+          {children}
+        </h3>
+      );
+    },
     normal: ({ children }) => (
       <p
         style={{

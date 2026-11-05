@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -7,9 +8,20 @@ import styles from "./header-nav.module.css";
 
 export function HeaderNav() {
   const pathname = usePathname();
+  const [isStudioSubdomain, setIsStudioSubdomain] = useState(false);
+
+  useEffect(() => {
+    const hostname = window.location.hostname.toLowerCase();
+    if (
+      hostname === "studio.soundgoose.com" ||
+      hostname.startsWith("studio.")
+    ) {
+      setIsStudioSubdomain(true);
+    }
+  }, []);
 
   // If in Sanity Studio, hide the regular website nav so Sanity takes the full screen
-  if (pathname?.startsWith("/studio")) {
+  if (pathname?.startsWith("/studio") || isStudioSubdomain) {
     return null;
   }
 

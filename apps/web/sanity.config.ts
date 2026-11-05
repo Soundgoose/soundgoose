@@ -4,7 +4,7 @@ import { schema } from "./sanity/schemaTypes";
 import { projectId, dataset } from "./sanity/env";
 
 export default defineConfig({
-  basePath: "/studio",
+  basePath: "/",
   name: "soundgoose-studio",
   title: "Sound Goose Studio",
   projectId,

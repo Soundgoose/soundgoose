@@ -9,7 +9,11 @@ import {
 } from "../../../sanity/lib/queries";
 import { urlForImage } from "../../../sanity/lib/image";
 import { portableTextComponents } from "../../components/portable-text-components";
-import { NewsletterSignupCard } from "../../components/newsletter-signup-card";
+import { ReadingProgress } from "../../components/reading-progress";
+import { ShareButtons } from "../../components/share-buttons";
+import { TableOfContents } from "../../components/table-of-contents";
+import { extractHeadings } from "../../lib/toc";
+import { calculateReadingTime } from "../../lib/reading-time";
 import styles from "./post.module.css";
 
 interface PostPageProps {
@@ -88,6 +92,10 @@ export default async function BlogPostPage({ params }: PostPageProps) {
     year: "numeric",
   });
 
+  const readTime = calculateReadingTime(post.body || post.excerpt);
+  const headings = extractHeadings(post.body);
+  const articleUrl = `https://soundgoose.com/blog/${slug}`;
+
   // JSON-LD Schema (BlogPosting & Breadcrumbs)
   const jsonLd = {
     "@context": "https://schema.org",
@@ -111,7 +119,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "@type": "ListItem",
             position: 3,
             name: post.title,
-            item: `https://soundgoose.com/blog/${slug}`,
+            item: articleUrl,
           },
         ],
       },
@@ -136,47 +144,86 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         image: coverUrl || "https://soundgoose.com/logo.png",
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://soundgoose.com/blog/${slug}`,
+          "@id": articleUrl,
         },
       },
     ],
   };
 
+  const authorInitials = (post.author?.name || "SG")
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
-    <article className={styles.container}>
+    <article className={styles.articleContainer}>
+      <ReadingProgress />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Link href="/blog" className={styles.backLink}>
-        ← Back to all articles
-      </Link>
+      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+        <Link href="/" className={styles.breadcrumbLink}>
+          Home
+        </Link>
+        <span>/</span>
+        <Link href="/blog" className={styles.breadcrumbLink}>
+          Blog
+        </Link>
+        <span>/</span>
+        <span>{post.title}</span>
+      </nav>
 
       <header className={styles.header}>
-        {post.categories && post.categories.length > 0 && (
-          <div className={styles.categories}>
-            {post.categories.map((c) => (
-              <span key={c.title} className={styles.categoryBadge}>
-                {c.title}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className={styles.metaRow}>
+          {post.categories && post.categories.length > 0 && (
+            <div className={styles.categories}>
+              {post.categories.map((c) => (
+                <span key={c.title} className={styles.categoryBadge}>
+                  {c.title}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <span className={styles.readTimeBadge}>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {readTime} min read
+          </span>
+        </div>
 
         <h1 className={styles.title}>{post.title}</h1>
 
         {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
 
-        <div className={styles.authorMeta}>
-          <div className={styles.authorInfo}>
-            <span className={styles.authorName}>
-              {post.author?.name || "Sound Goose Team"}
-            </span>
-            <time className={styles.publishDate} dateTime={post.publishedAt}>
-              Published on {formattedDate}
-            </time>
+        <div className={styles.authorBar}>
+          <div className={styles.authorMeta}>
+            <div className={styles.authorAvatar}>{authorInitials}</div>
+            <div className={styles.authorInfo}>
+              <span className={styles.authorName}>
+                {post.author?.name || "Sound Goose Team"}
+              </span>
+              <time className={styles.publishDate} dateTime={post.publishedAt}>
+                Published on {formattedDate}
+              </time>
+            </div>
           </div>
+
+          <ShareButtons title={post.title} url={articleUrl} />
         </div>
       </header>
 
@@ -193,23 +240,33 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         </div>
       )}
 
+      {headings.length > 0 && <TableOfContents headings={headings} />}
+
       <div className={styles.body}>
         {post.body && (
           <PortableText value={post.body} components={portableTextComponents} />
         )}
       </div>
 
-      <div className={styles.footerNav}>
-        <Link href="/blog" className={styles.backLink}>
-          ← Back to all dispatches
-        </Link>
+      <div className={styles.authorBioCard}>
+        <div className={styles.bioAvatar}>{authorInitials}</div>
+        <div>
+          <h3 className={styles.bioName}>
+            {post.author?.name || "Sound Goose Team"}
+          </h3>
+          <p className={styles.bioText}>
+            {post.author?.bio ||
+              "Engineers and sound designers at Sound Goose, rethinking spatial audio, browser acoustics, and collaborative creation."}
+          </p>
+        </div>
       </div>
 
-      <NewsletterSignupCard
-        title="Liked this breakdown?"
-        description="Join fellow audio artists and sound designers receiving the Sound Goose Dispatch every other week."
-        source={`blog-post-${slug}`}
-      />
+      <footer className={styles.footerNav}>
+        <Link href="/blog" className={styles.backButton}>
+          ← Back to all dispatches
+        </Link>
+        <ShareButtons title={post.title} url={articleUrl} />
+      </footer>
     </article>
   );
 }

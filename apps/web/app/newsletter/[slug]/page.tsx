@@ -7,7 +7,11 @@ import {
   getNewsletterSlugs,
 } from "../../../sanity/lib/queries";
 import { portableTextComponents } from "../../components/portable-text-components";
-import { NewsletterSignupCard } from "../../components/newsletter-signup-card";
+import { ReadingProgress } from "../../components/reading-progress";
+import { ShareButtons } from "../../components/share-buttons";
+import { TableOfContents } from "../../components/table-of-contents";
+import { extractHeadings } from "../../lib/toc";
+import { calculateReadingTime } from "../../lib/reading-time";
 import styles from "./issue.module.css";
 
 interface NewsletterIssueProps {
@@ -79,6 +83,10 @@ export default async function NewsletterIssuePage({
     },
   );
 
+  const readTime = calculateReadingTime(issue.fullBody || issue.emailExcerpt);
+  const headings = extractHeadings(issue.fullBody);
+  const issueUrl = `https://soundgoose.com/newsletter/${slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -101,7 +109,7 @@ export default async function NewsletterIssuePage({
             "@type": "ListItem",
             position: 3,
             name: `Issue #${issue.issueNumber}: ${issue.title}`,
-            item: `https://soundgoose.com/newsletter/${slug}`,
+            item: issueUrl,
           },
         ],
       },
@@ -125,48 +133,82 @@ export default async function NewsletterIssuePage({
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://soundgoose.com/newsletter/${slug}`,
+          "@id": issueUrl,
         },
       },
     ],
   };
 
   return (
-    <article className={styles.container}>
+    <article className={styles.articleContainer}>
+      <ReadingProgress />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Link href="/newsletter" className={styles.backLink}>
-        ← Back to all newsletter issues
-      </Link>
+      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+        <Link href="/" className={styles.breadcrumbLink}>
+          Home
+        </Link>
+        <span>/</span>
+        <Link href="/newsletter" className={styles.breadcrumbLink}>
+          Newsletter
+        </Link>
+        <span>/</span>
+        <span>Issue #{issue.issueNumber}</span>
+      </nav>
 
       <header className={styles.header}>
-        <div className={styles.issueMeta}>
+        <div className={styles.metaRow}>
           <span className={styles.issueBadge}>Issue #{issue.issueNumber}</span>
-          <span className={styles.date}>Published on {formattedDate}</span>
+
+          <span className={styles.readTimeBadge}>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {readTime} min read
+          </span>
         </div>
 
         <h1 className={styles.title}>{issue.title}</h1>
 
         {issue.emailSubject && (
-          <div className={styles.subjectLine}>
-            <span className={styles.subjectLabel}>Subject:</span>
-            <span>{issue.emailSubject}</span>
+          <div className={styles.subjectLineCard}>
+            <span className={styles.subjectLabel}>Email Subject:</span>
+            <span>&ldquo;{issue.emailSubject}&rdquo;</span>
           </div>
         )}
+
+        <div className={styles.actionBar}>
+          <time className={styles.date} dateTime={issue.publishedAt}>
+            Dispatched on {formattedDate}
+          </time>
+
+          <ShareButtons title={issue.title} url={issueUrl} />
+        </div>
       </header>
 
       {issue.emailExcerpt && (
         <section
           className={styles.teaserCallout}
-          aria-label="Email Teaser Excerpt"
+          aria-label="From the Email Dispatch"
         >
-          <div className={styles.teaserTitle}>From the Email Dispatch</div>
+          <div className={styles.teaserEyebrow}>From the Email Dispatch</div>
           <p className={styles.teaserText}>{issue.emailExcerpt}</p>
         </section>
       )}
+
+      {headings.length > 0 && <TableOfContents headings={headings} />}
 
       <div className={styles.body}>
         {issue.fullBody && (
@@ -177,17 +219,12 @@ export default async function NewsletterIssuePage({
         )}
       </div>
 
-      <div className={styles.footerNav}>
-        <Link href="/newsletter" className={styles.backLink}>
-          ← Back to newsletter archive
+      <footer className={styles.footerNav}>
+        <Link href="/newsletter" className={styles.backButton}>
+          ← Back to all editions
         </Link>
-      </div>
-
-      <NewsletterSignupCard
-        title="Never miss an issue"
-        description="Get the next edition of the Sound Goose Dispatch sent directly to your inbox every two weeks."
-        source={`newsletter-issue-${slug}`}
-      />
+        <ShareButtons title={issue.title} url={issueUrl} />
+      </footer>
     </article>
   );
 }
