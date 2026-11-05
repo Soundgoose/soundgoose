@@ -4,7 +4,7 @@ export default function EmailPreviewPage() {
   // In browser preview, replace the email attachment cid: with the local /logo.png path
   const html = generateWaitlistEmailHtml().replace(
     'src="cid:soundgoose-logo"',
-    'src="/logo.png"'
+    'src="/logo.png"',
   );
 
   return (

@@ -27,7 +27,9 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <p className={styles.footerText}>
-          &copy; {new Date().getFullYear()} Sound Goose <span className={styles.separator}>•</span> Built for independent artists
+          &copy; {new Date().getFullYear()} Sound Goose{" "}
+          <span className={styles.separator}>•</span> Built for independent
+          artists
         </p>
       </footer>
     </div>

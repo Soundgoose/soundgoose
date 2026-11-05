@@ -21,7 +21,7 @@ async function updateWaitlistEmailStatus(
   listIdentifier: string,
   personRecordId: string,
   status: "sent" | "failed" | "skipped",
-  errorDetail?: string
+  errorDetail?: string,
 ) {
   try {
     const entryValues: Record<string, unknown> = {
@@ -46,27 +46,30 @@ async function updateWaitlistEmailStatus(
             entry_values: entryValues,
           },
         }),
-      }
+      },
     );
 
     if (!res.ok) {
       const errText = await res.text();
       console.warn(
-        `[Attio List] Could not update 'email_status' on list '${listIdentifier}' (${res.status}): ${errText}. (Ensure an 'email_status' attribute exists on your Waitlist list)`
+        `[Attio List] Could not update 'email_status' on list '${listIdentifier}' (${res.status}): ${errText}. (Ensure an 'email_status' attribute exists on your Waitlist list)`,
       );
     } else {
       console.log(
-        `[Attio List] Successfully set email_status='${status}' on waitlist entry for person ${personRecordId}`
+        `[Attio List] Successfully set email_status='${status}' on waitlist entry for person ${personRecordId}`,
       );
     }
   } catch (err) {
-    console.error("[Attio List] Exception while updating email_status attribute:", err);
+    console.error(
+      "[Attio List] Exception while updating email_status attribute:",
+      err,
+    );
   }
 }
 
 export async function joinWaitlist(
   email: string,
-  metadata?: WaitlistMetadata
+  metadata?: WaitlistMetadata,
 ): Promise<{ ok: boolean; alreadyRegistered?: boolean; error?: string }> {
   if (!email || !email.includes("@")) {
     return { ok: false, error: "Please enter a valid email address." };
@@ -101,7 +104,7 @@ export async function joinWaitlist(
             },
             limit: 1,
           }),
-        }
+        },
       );
 
       if (searchRes.ok) {
@@ -131,12 +134,15 @@ export async function joinWaitlist(
             },
           },
         }),
-      }
+      },
     );
 
     if (!personUpsertRes.ok) {
       const body = await personUpsertRes.text();
-      console.error(`Attio Person API error (${personUpsertRes.status}):`, body);
+      console.error(
+        `Attio Person API error (${personUpsertRes.status}):`,
+        body,
+      );
       return {
         ok: false,
         error: "Could not join the waitlist right now. Please try again.",
@@ -174,7 +180,8 @@ export async function joinWaitlist(
 
     if (metadata?.utm_source) entryValues.utm_source = metadata.utm_source;
     if (metadata?.utm_medium) entryValues.utm_medium = metadata.utm_medium;
-    if (metadata?.utm_campaign) entryValues.utm_campaign = metadata.utm_campaign;
+    if (metadata?.utm_campaign)
+      entryValues.utm_campaign = metadata.utm_campaign;
     if (metadata?.utm_term) entryValues.utm_term = metadata.utm_term;
     if (metadata?.utm_content) entryValues.utm_content = metadata.utm_content;
     if (metadata?.ref) entryValues.referral = metadata.ref;
@@ -207,7 +214,7 @@ export async function joinWaitlist(
                 entry_values: entryValues,
               },
             }),
-          }
+          },
         );
 
         // Fallback: If custom list attributes fail (e.g. slug mismatch),
@@ -216,7 +223,7 @@ export async function joinWaitlist(
           const failedBody = await listRes.text();
           console.warn(
             `Attio list entry with attributes failed on list '${listIdentifier}':`,
-            failedBody
+            failedBody,
           );
 
           listRes = await fetch(
@@ -233,7 +240,7 @@ export async function joinWaitlist(
                   parent_object: "people",
                 },
               }),
-            }
+            },
           );
         }
 
@@ -248,9 +255,16 @@ export async function joinWaitlist(
 
     // 5. If already registered, skip sending email and return alreadyRegistered flag
     if (isExistingContact) {
-      console.log(`[Waitlist Flow] Contact ${email} already on waitlist. Skipping duplicate confirmation email.`);
+      console.log(
+        `[Waitlist Flow] Contact ${email} already on waitlist. Skipping duplicate confirmation email.`,
+      );
       if (personRecordId) {
-        await updateWaitlistEmailStatus(apiKey, listIdentifier, personRecordId, "skipped");
+        await updateWaitlistEmailStatus(
+          apiKey,
+          listIdentifier,
+          personRecordId,
+          "skipped",
+        );
       }
       return { ok: true, alreadyRegistered: true };
     }
@@ -261,26 +275,34 @@ export async function joinWaitlist(
 
       if (personRecordId) {
         if (emailResult.success) {
-          await updateWaitlistEmailStatus(apiKey, listIdentifier, personRecordId, "sent");
+          await updateWaitlistEmailStatus(
+            apiKey,
+            listIdentifier,
+            personRecordId,
+            "sent",
+          );
         } else {
           await updateWaitlistEmailStatus(
             apiKey,
             listIdentifier,
             personRecordId,
             "failed",
-            emailResult.error
+            emailResult.error,
           );
         }
       }
     } catch (emailErr) {
-      console.error("[Waitlist Flow] Unhandled confirmation email exception:", emailErr);
+      console.error(
+        "[Waitlist Flow] Unhandled confirmation email exception:",
+        emailErr,
+      );
       if (personRecordId) {
         await updateWaitlistEmailStatus(
           apiKey,
           listIdentifier,
           personRecordId,
           "failed",
-          emailErr instanceof Error ? emailErr.message : String(emailErr)
+          emailErr instanceof Error ? emailErr.message : String(emailErr),
         );
       }
     }
