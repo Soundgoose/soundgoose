@@ -1,0 +1,122 @@
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem 1.5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.15s ease;
+}
+
+.backLink:hover {
+  color: var(--brand);
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2rem;
+}
+
+.issueMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.issueBadge {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brand);
+  background: rgba(217, 166, 137, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.subjectLine {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  background: #faf7f4;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px dashed var(--border-strong);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subjectLabel {
+  font-weight: 600;
+  color: var(--brand);
+}
+
+.teaserCallout {
+  background: rgba(229, 218, 208, 0.45);
+  border-left: 3px solid #d9a689;
+  padding: 1.5rem 1.75rem;
+  border-radius: 0 8px 8px 0;
+  margin: 2.5rem 0;
+}
+
+.teaserTitle {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.teaserText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2b1d16;
+  font-style: italic;
+}
+
+.body {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #2b1d16;
+  margin-top: 2rem;
+}
+
+.footerNav {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 2rem 1rem 3.5rem 1rem;
+  }
+}

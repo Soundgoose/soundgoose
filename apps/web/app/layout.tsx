@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { HeaderNav } from "./components/header-nav";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -54,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fraunces.variable} ${plusJakartaSans.variable}`}>
+        <HeaderNav />
         {children}
         <Analytics />
       </body>
