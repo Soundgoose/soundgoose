@@ -89,7 +89,10 @@ export function middleware(request: NextRequest) {
   }
 
   // 2. Public Site: Block any access to /studio with 404
-  if (!isStudio && (pathname === "/studio" || pathname.startsWith("/studio/"))) {
+  if (
+    !isStudio &&
+    (pathname === "/studio" || pathname.startsWith("/studio/"))
+  ) {
     return new NextResponse("Not Found", { status: 404 });
   }
 

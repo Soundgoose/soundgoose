@@ -87,7 +87,10 @@ export function PortalNav() {
       </div>
 
       <div className={styles.rightSection}>
-        <div className={styles.statusPill} title={`Connected to Sanity project ${projectId} (${dataset})`}>
+        <div
+          className={styles.statusPill}
+          title={`Connected to Sanity project ${projectId} (${dataset})`}
+        >
           <span className={styles.statusDot} />
           <span>
             Sanity: <strong>{projectId}</strong>

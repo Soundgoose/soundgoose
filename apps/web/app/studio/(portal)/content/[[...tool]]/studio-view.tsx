@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, Component, type ErrorInfo, type ReactNode } from "react";
+import {
+  useEffect,
+  useState,
+  Component,
+  type ErrorInfo,
+  type ReactNode,
+} from "react";
 import dynamic from "next/dynamic";
 import config from "../../../../../sanity.config";
 import { projectId, dataset } from "../../../../../sanity/env";
@@ -10,7 +16,9 @@ const NextStudio = dynamic(
   () => import("next-sanity/studio").then((mod) => mod.NextStudio),
   {
     ssr: false,
-    loading: () => <StudioLoadingState message="Initializing Content Studio..." />,
+    loading: () => (
+      <StudioLoadingState message="Initializing Content Studio..." />
+    ),
   },
 );
 
@@ -24,7 +32,10 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-class StudioErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class StudioErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -52,21 +63,29 @@ class StudioErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySta
 
 export function StudioView() {
   const [origin, setOrigin] = useState<string>("");
-  const [corsStatus, setCorsStatus] = useState<"checking" | "allowed" | "blocked" | "offline">("checking");
+  const [corsStatus, setCorsStatus] = useState<
+    "checking" | "allowed" | "blocked" | "offline"
+  >("checking");
   const [checkingAgain, setCheckingAgain] = useState(false);
 
   async function checkCors(targetOrigin: string) {
     try {
       // Test the Sanity project endpoint with credentials
-      const res = await fetch(`https://${projectId}.api.sanity.io/v2024-11-01/projects/${projectId}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const res = await fetch(
+        `https://${projectId}.api.sanity.io/v2024-11-01/projects/${projectId}`,
+        {
+          method: "GET",
+          mode: "cors",
+        },
+      );
 
       // If we get 403 with CORS forbidden or blocked, we know CORS is missing
       if (res.status === 403) {
         const data = await res.json().catch(() => null);
-        if (data?.message?.includes("CORS") || data?.error?.includes("Forbidden")) {
+        if (
+          data?.message?.includes("CORS") ||
+          data?.error?.includes("Forbidden")
+        ) {
           setCorsStatus("blocked");
           return;
         }
@@ -101,7 +120,9 @@ export function StudioView() {
 
   // 1. Initial Checking State
   if (corsStatus === "checking") {
-    return <StudioLoadingState message="Connecting to Sanity Content Lake..." />;
+    return (
+      <StudioLoadingState message="Connecting to Sanity Content Lake..." />
+    );
   }
 
   // 2. CORS Blocked State: Prevent React 19 crash and provide 1-click authorization
@@ -173,7 +194,9 @@ export function StudioView() {
               margin: "0 0 1.5rem 0",
             }}
           >
-            Your Sanity project <code>{projectId}</code> requires CORS origin permission for this domain so Studio can safely authenticate and load documents without browser security blocks.
+            Your Sanity project <code>{projectId}</code> requires CORS origin
+            permission for this domain so Studio can safely authenticate and
+            load documents without browser security blocks.
           </p>
 
           <div
@@ -189,15 +212,30 @@ export function StudioView() {
             <div style={{ color: "#8f847d", marginBottom: "0.35rem" }}>
               Origin to authorize:
             </div>
-            <code style={{ color: "#34d399", fontSize: "0.9rem", fontWeight: 600 }}>
+            <code
+              style={{ color: "#34d399", fontSize: "0.9rem", fontWeight: 600 }}
+            >
               {origin}
             </code>
-            <div style={{ color: "#8f847d", marginTop: "0.5rem", fontSize: "0.75rem" }}>
+            <div
+              style={{
+                color: "#8f847d",
+                marginTop: "0.5rem",
+                fontSize: "0.75rem",
+              }}
+            >
               Allow credentials: <strong>Enabled (checked)</strong>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap", marginBottom: "2rem" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.85rem",
+              flexWrap: "wrap",
+              marginBottom: "2rem",
+            }}
+          >
             <a
               href={corsManageUrl}
               target="_blank"
@@ -253,8 +291,12 @@ export function StudioView() {
             <strong>Quick steps:</strong>
             <ol style={{ paddingLeft: "1.1rem", margin: "0.4rem 0 0 0" }}>
               <li>Click &ldquo;Authorize in Sanity Manage&rdquo; above.</li>
-              <li>Confirm the pre-filled origin and click <em>Save</em>.</li>
-              <li>Return here and click &ldquo;Verify &amp; Launch Studio&rdquo;.</li>
+              <li>
+                Confirm the pre-filled origin and click <em>Save</em>.
+              </li>
+              <li>
+                Return here and click &ldquo;Verify &amp; Launch Studio&rdquo;.
+              </li>
             </ol>
           </div>
         </div>
@@ -283,9 +325,18 @@ export function StudioView() {
               margin: "0 auto",
             }}
           >
-            <h3 style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>Studio Session Notice</h3>
-            <p style={{ fontSize: "0.85rem", color: "#9e9188", marginBottom: "1.5rem" }}>
-              {error.message || "An unexpected error occurred while loading Sanity Studio."}
+            <h3 style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+              Studio Session Notice
+            </h3>
+            <p
+              style={{
+                fontSize: "0.85rem",
+                color: "#9e9188",
+                marginBottom: "1.5rem",
+              }}
+            >
+              {error.message ||
+                "An unexpected error occurred while loading Sanity Studio."}
             </p>
             <button
               onClick={reset}

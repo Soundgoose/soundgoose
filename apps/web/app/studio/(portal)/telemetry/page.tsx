@@ -69,7 +69,14 @@ export default function StudioTelemetryPage() {
               borderRadius: "9999px",
             }}
           >
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#10b981",
+              }}
+            />
             All Systems Nominal
           </span>
         </div>
@@ -92,13 +99,27 @@ export default function StudioTelemetryPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Median Stem Separation Latency
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}
+          >
             1.42s
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#10b981", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#10b981",
+              marginTop: "0.35rem",
+            }}
+          >
             Fast Fourier Transform speedup active
           </div>
         </div>
@@ -111,13 +132,27 @@ export default function StudioTelemetryPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Audio Processing Fidelity
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#c29d74" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#c29d74" }}
+          >
             32-bit float
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginTop: "0.35rem",
+            }}
+          >
             48 kHz / 96 kHz uncompressed
           </div>
         </div>
@@ -130,13 +165,27 @@ export default function StudioTelemetryPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Sanity Content Lake Latency
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}
+          >
             38ms
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginTop: "0.35rem",
+            }}
+          >
             Edge CDN cached
           </div>
         </div>
@@ -149,13 +198,27 @@ export default function StudioTelemetryPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Core Web Vitals Score
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}
+          >
             99 / 100
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#10b981", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#10b981",
+              marginTop: "0.35rem",
+            }}
+          >
             LCP: 0.8s | INP: 24ms | CLS: 0.00
           </div>
         </div>
@@ -170,17 +233,51 @@ export default function StudioTelemetryPage() {
           padding: "1.75rem",
         }}
       >
-        <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "#f5f0eb", marginBottom: "1.25rem" }}>
+        <div
+          style={{
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            color: "#f5f0eb",
+            marginBottom: "1.25rem",
+          }}
+        >
           Infrastructure Services
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           {[
-            { name: "Sanity Studio API Engine", endpoint: "https://qcz8ykkg.api.sanity.io", status: "Operational", ping: "38ms" },
-            { name: "Waitlist Ingestion Lambda", endpoint: "/api/waitlist", status: "Operational", ping: "42ms" },
-            { name: "Attio CRM Sync Gateway", endpoint: "https://api.attio.com/v2", status: "Operational", ping: "110ms" },
-            { name: "Resend Email Dispatcher", endpoint: "https://api.resend.com", status: "Operational", ping: "85ms" },
-            { name: "Vercel Edge Network", endpoint: "Global Anycast", status: "Operational", ping: "14ms" },
+            {
+              name: "Sanity Studio API Engine",
+              endpoint: "https://qcz8ykkg.api.sanity.io",
+              status: "Operational",
+              ping: "38ms",
+            },
+            {
+              name: "Waitlist Ingestion Lambda",
+              endpoint: "/api/waitlist",
+              status: "Operational",
+              ping: "42ms",
+            },
+            {
+              name: "Attio CRM Sync Gateway",
+              endpoint: "https://api.attio.com/v2",
+              status: "Operational",
+              ping: "110ms",
+            },
+            {
+              name: "Resend Email Dispatcher",
+              endpoint: "https://api.resend.com",
+              status: "Operational",
+              ping: "85ms",
+            },
+            {
+              name: "Vercel Edge Network",
+              endpoint: "Global Anycast",
+              status: "Operational",
+              ping: "14ms",
+            },
           ].map((item, idx) => (
             <div
               key={idx}
@@ -195,13 +292,42 @@ export default function StudioTelemetryPage() {
               }}
             >
               <div>
-                <span style={{ fontWeight: 600, color: "#f5f0eb" }}>{item.name}</span>
-                <span style={{ color: "#8f847d", marginLeft: "0.75rem", fontSize: "0.75rem" }}>{item.endpoint}</span>
+                <span style={{ fontWeight: 600, color: "#f5f0eb" }}>
+                  {item.name}
+                </span>
+                <span
+                  style={{
+                    color: "#8f847d",
+                    marginLeft: "0.75rem",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  {item.endpoint}
+                </span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                <span style={{ color: "#8f847d", fontSize: "0.75rem" }}>{item.ping}</span>
-                <span style={{ color: "#10b981", fontSize: "0.75rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#10b981" }} />
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+              >
+                <span style={{ color: "#8f847d", fontSize: "0.75rem" }}>
+                  {item.ping}
+                </span>
+                <span
+                  style={{
+                    color: "#10b981",
+                    fontSize: "0.75rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.35rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "50%",
+                      background: "#10b981",
+                    }}
+                  />
                   {item.status}
                 </span>
               </div>
