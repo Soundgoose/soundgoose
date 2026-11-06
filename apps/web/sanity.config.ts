@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schema } from "./sanity/schemaTypes";
 import { projectId, dataset } from "./sanity/env";
+import { structure } from "./sanity/structure";
 
 export default defineConfig({
   basePath: "/",
@@ -9,6 +10,6 @@ export default defineConfig({
   title: "Sound Goose Studio",
   projectId,
   dataset,
-  plugins: [structureTool()],
+  plugins: [structureTool({ structure })],
   schema,
 });

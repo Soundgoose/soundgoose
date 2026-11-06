@@ -1,22 +1,26 @@
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-11-01";
 
-export const dataset = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  "Missing environment variable: NEXT_PUBLIC_SANITY_DATASET",
-);
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
-export const projectId =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder-project-id";
-
-export const isConfigured = Boolean(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID &&
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== "placeholder-project-id",
-);
-
-function assertValue<T>(v: T | undefined, errorMessage: string): T {
-  if (v === undefined) {
-    throw new Error(errorMessage);
+export function getProjectId(): string {
+  const envPid = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (envPid && envPid.trim() && envPid !== "placeholder-project-id") {
+    return envPid.trim();
   }
-  return v;
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem("sg_sanity_project_id");
+      if (stored && stored.trim() && stored !== "placeholder-project-id") {
+        return stored.trim();
+      }
+    } catch {
+      // ignore storage access errors
+    }
+  }
+  return "";
 }
+
+export const projectId = getProjectId() || "placeholder-project-id";
+
+export const isConfigured = Boolean(getProjectId());
