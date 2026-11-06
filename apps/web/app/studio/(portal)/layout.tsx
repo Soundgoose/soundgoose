@@ -6,7 +6,9 @@ export default function StudioPortalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <PortalNav />
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         {children}

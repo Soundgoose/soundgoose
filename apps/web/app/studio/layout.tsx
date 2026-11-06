@@ -3,7 +3,8 @@ import "./studio.css";
 
 export const metadata: Metadata = {
   title: "Sound Goose Studio | Team Portal",
-  description: "Internal operations and editorial management portal for Sound Goose",
+  description:
+    "Internal operations and editorial management portal for Sound Goose",
   robots: {
     index: false,
     follow: false,

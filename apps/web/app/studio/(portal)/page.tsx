@@ -149,7 +149,8 @@ export default function StudioOverviewPage() {
                 margin: 0,
               }}
             >
-              Structured editorial schema for Liner Notes articles, Weekly Digest editions, and audio media metadata.
+              Structured editorial schema for Liner Notes articles, Weekly
+              Digest editions, and audio media metadata.
             </p>
           </div>
 
@@ -163,8 +164,23 @@ export default function StudioOverviewPage() {
               alignItems: "center",
             }}
           >
-            <span style={{ fontSize: "0.78rem", color: "#10b981", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+            <span
+              style={{
+                fontSize: "0.78rem",
+                color: "#10b981",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "#10b981",
+                }}
+              />
               Active ({projectId})
             </span>
             <Link
@@ -223,7 +239,8 @@ export default function StudioOverviewPage() {
                 margin: 0,
               }}
             >
-              Producer signups, early access cohorts, Attio sync telemetry, and verified email invitations.
+              Producer signups, early access cohorts, Attio sync telemetry, and
+              verified email invitations.
             </p>
           </div>
 
@@ -296,7 +313,8 @@ export default function StudioOverviewPage() {
                 margin: 0,
               }}
             >
-              Newsletter delivery engine, subscriber segmentation, open tracking, and HTML delivery previews.
+              Newsletter delivery engine, subscriber segmentation, open
+              tracking, and HTML delivery previews.
             </p>
           </div>
 
@@ -369,7 +387,8 @@ export default function StudioOverviewPage() {
                 margin: 0,
               }}
             >
-              Stem separation engine status, pipeline latency, audio compression health, and model performance.
+              Stem separation engine status, pipeline latency, audio compression
+              health, and model performance.
             </p>
           </div>
 
@@ -383,8 +402,23 @@ export default function StudioOverviewPage() {
               alignItems: "center",
             }}
           >
-            <span style={{ fontSize: "0.78rem", color: "#10b981", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+            <span
+              style={{
+                fontSize: "0.78rem",
+                color: "#10b981",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "#10b981",
+                }}
+              />
               Nominal
             </span>
             <Link
@@ -421,7 +455,14 @@ export default function StudioOverviewPage() {
             gap: "0.5rem",
           }}
         >
-          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+          <span
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              background: "#10b981",
+            }}
+          />
           Connected Operational Services
         </h3>
 
@@ -441,7 +482,13 @@ export default function StudioOverviewPage() {
               border: "1px solid rgba(255, 255, 255, 0.05)",
             }}
           >
-            <div style={{ fontWeight: 600, color: "#f5f0eb", marginBottom: "0.35rem" }}>
+            <div
+              style={{
+                fontWeight: 600,
+                color: "#f5f0eb",
+                marginBottom: "0.35rem",
+              }}
+            >
               Sanity Content Lake
             </div>
             <div style={{ color: "#9e9188", lineHeight: 1.5 }}>
@@ -449,7 +496,8 @@ export default function StudioOverviewPage() {
               <br />
               Dataset: <code>{dataset}</code>
               <br />
-              CORS Origins: <code>studio.localhost:3000</code>, <code>studio.soundgoose.com</code>
+              CORS Origins: <code>studio.localhost:3000</code>,{" "}
+              <code>studio.soundgoose.com</code>
             </div>
           </div>
 
@@ -461,7 +509,13 @@ export default function StudioOverviewPage() {
               border: "1px solid rgba(255, 255, 255, 0.05)",
             }}
           >
-            <div style={{ fontWeight: 600, color: "#f5f0eb", marginBottom: "0.35rem" }}>
+            <div
+              style={{
+                fontWeight: 600,
+                color: "#f5f0eb",
+                marginBottom: "0.35rem",
+              }}
+            >
               Team Access Perimeter
             </div>
             <div style={{ color: "#9e9188", lineHeight: 1.5 }}>
@@ -469,7 +523,8 @@ export default function StudioOverviewPage() {
               <br />
               Gate: Passcode session cookie (7 days)
               <br />
-              Public website: <code>soundgoose.com/studio</code> strictly blocked (404)
+              Public website: <code>soundgoose.com/studio</code> strictly
+              blocked (404)
             </div>
           </div>
 
@@ -481,7 +536,13 @@ export default function StudioOverviewPage() {
               border: "1px solid rgba(255, 255, 255, 0.05)",
             }}
           >
-            <div style={{ fontWeight: 600, color: "#f5f0eb", marginBottom: "0.35rem" }}>
+            <div
+              style={{
+                fontWeight: 600,
+                color: "#f5f0eb",
+                marginBottom: "0.35rem",
+              }}
+            >
               Monorepo Workspaces
             </div>
             <div style={{ color: "#9e9188", lineHeight: 1.5 }}>

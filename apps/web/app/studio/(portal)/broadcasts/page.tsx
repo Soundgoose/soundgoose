@@ -91,13 +91,27 @@ export default function StudioBroadcastsPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Active Subscribers
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}
+          >
             2,450
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#10b981", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#10b981",
+              marginTop: "0.35rem",
+            }}
+          >
             Verified double opt-in
           </div>
         </div>
@@ -110,13 +124,27 @@ export default function StudioBroadcastsPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Average Open Rate
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#c29d74" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#c29d74" }}
+          >
             54.2%
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginTop: "0.35rem",
+            }}
+          >
             Industry avg: 21.5%
           </div>
         </div>
@@ -129,13 +157,27 @@ export default function StudioBroadcastsPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Delivery Engine
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#10b981" }}
+          >
             Resend
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginTop: "0.35rem",
+            }}
+          >
             DKIM / SPF Verified
           </div>
         </div>
@@ -148,13 +190,27 @@ export default function StudioBroadcastsPage() {
             padding: "1.25rem",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginBottom: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginBottom: "0.35rem",
+            }}
+          >
             Broadcast Schedule
           </div>
-          <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}>
+          <div
+            style={{ fontSize: "1.8rem", fontWeight: 700, color: "#f5f0eb" }}
+          >
             Thursdays
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#9e9188", marginTop: "0.35rem" }}>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "#9e9188",
+              marginTop: "0.35rem",
+            }}
+          >
             10:00 AM EST (Weekly)
           </div>
         </div>
@@ -178,7 +234,9 @@ export default function StudioBroadcastsPage() {
             alignItems: "center",
           }}
         >
-          <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "#f5f0eb" }}>
+          <div
+            style={{ fontWeight: 600, fontSize: "0.95rem", color: "#f5f0eb" }}
+          >
             Recent Newsletter Editions
           </div>
           <span style={{ fontSize: "0.75rem", color: "#9e9188" }}>
@@ -187,9 +245,24 @@ export default function StudioBroadcastsPage() {
         </div>
 
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.82rem" }}>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              textAlign: "left",
+              fontSize: "0.82rem",
+            }}
+          >
             <thead>
-              <tr style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.06)", color: "#8f847d", textTransform: "uppercase", fontSize: "0.7rem", letterSpacing: "0.08em" }}>
+              <tr
+                style={{
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+                  color: "#8f847d",
+                  textTransform: "uppercase",
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.08em",
+                }}
+              >
                 <th style={{ padding: "0.85rem 1.5rem" }}>Issue #</th>
                 <th style={{ padding: "0.85rem 1.5rem" }}>Subject Title</th>
                 <th style={{ padding: "0.85rem 1.5rem" }}>Status</th>
@@ -199,18 +272,62 @@ export default function StudioBroadcastsPage() {
             </thead>
             <tbody>
               {[
-                { issue: "Issue #03", title: "Stem Isolation Standards and Frequency Clarity in 2026", status: "Ready to Broadcast", subs: "2,450", open: "Pending" },
-                { issue: "Issue #02", title: "Why Traditional Music Demos Get Lost in A&R Inboxes", status: "Sent", subs: "2,180", open: "56.4%" },
-                { issue: "Issue #01", title: "Welcome to Sound Goose: The Architecture of Audio Velocity", status: "Sent", subs: "1,890", open: "61.2%" },
+                {
+                  issue: "Issue #03",
+                  title:
+                    "Stem Isolation Standards and Frequency Clarity in 2026",
+                  status: "Ready to Broadcast",
+                  subs: "2,450",
+                  open: "Pending",
+                },
+                {
+                  issue: "Issue #02",
+                  title: "Why Traditional Music Demos Get Lost in A&R Inboxes",
+                  status: "Sent",
+                  subs: "2,180",
+                  open: "56.4%",
+                },
+                {
+                  issue: "Issue #01",
+                  title:
+                    "Welcome to Sound Goose: The Architecture of Audio Velocity",
+                  status: "Sent",
+                  subs: "1,890",
+                  open: "61.2%",
+                },
               ].map((row, i) => (
-                <tr key={i} style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.04)" }}>
-                  <td style={{ padding: "0.85rem 1.5rem", color: "#c29d74", fontWeight: 600 }}>{row.issue}</td>
-                  <td style={{ padding: "0.85rem 1.5rem", color: "#f5f0eb", fontWeight: 500 }}>{row.title}</td>
+                <tr
+                  key={i}
+                  style={{
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
+                  }}
+                >
+                  <td
+                    style={{
+                      padding: "0.85rem 1.5rem",
+                      color: "#c29d74",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {row.issue}
+                  </td>
+                  <td
+                    style={{
+                      padding: "0.85rem 1.5rem",
+                      color: "#f5f0eb",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {row.title}
+                  </td>
                   <td style={{ padding: "0.85rem 1.5rem" }}>
                     <span
                       style={{
                         color: row.status === "Sent" ? "#10b981" : "#c29d74",
-                        backgroundColor: row.status === "Sent" ? "rgba(16, 185, 129, 0.1)" : "rgba(194, 157, 116, 0.1)",
+                        backgroundColor:
+                          row.status === "Sent"
+                            ? "rgba(16, 185, 129, 0.1)"
+                            : "rgba(194, 157, 116, 0.1)",
                         padding: "0.2rem 0.5rem",
                         borderRadius: "4px",
                         fontSize: "0.72rem",
@@ -219,8 +336,16 @@ export default function StudioBroadcastsPage() {
                       {row.status}
                     </span>
                   </td>
-                  <td style={{ padding: "0.85rem 1.5rem", color: "#d1c7bf" }}>{row.subs}</td>
-                  <td style={{ padding: "0.85rem 1.5rem", color: row.open === "Pending" ? "#8f847d" : "#10b981", fontWeight: 600 }}>
+                  <td style={{ padding: "0.85rem 1.5rem", color: "#d1c7bf" }}>
+                    {row.subs}
+                  </td>
+                  <td
+                    style={{
+                      padding: "0.85rem 1.5rem",
+                      color: row.open === "Pending" ? "#8f847d" : "#10b981",
+                      fontWeight: 600,
+                    }}
+                  >
                     {row.open}
                   </td>
                 </tr>

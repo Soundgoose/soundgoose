@@ -106,7 +106,8 @@ export default function StudioLoginPage() {
             lineHeight: 1.5,
           }}
         >
-          Enter your team passcode to access editorial operations, Sanity Studio, waitlist intelligence, and email dispatches.
+          Enter your team passcode to access editorial operations, Sanity
+          Studio, waitlist intelligence, and email dispatches.
         </p>
 
         <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
