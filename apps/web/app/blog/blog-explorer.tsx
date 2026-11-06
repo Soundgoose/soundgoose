@@ -12,6 +12,60 @@ interface BlogExplorerProps {
   posts: BlogPost[];
 }
 
+function WaveformPlaceholder({
+  size = "default",
+}: {
+  size?: "featured" | "default";
+}) {
+  const isFeatured = size === "featured";
+  return (
+    <div
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: isFeatured ? "0.85rem" : "0.5rem",
+        background:
+          "linear-gradient(135deg, rgba(229, 218, 208, 0.7) 0%, rgba(217, 166, 137, 0.4) 100%)",
+        color: "#40271e",
+      }}
+      aria-hidden="true"
+    >
+      <svg
+        width={isFeatured ? 56 : 38}
+        height={isFeatured ? 32 : 22}
+        viewBox="0 0 64 36"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.75"
+        strokeLinecap="round"
+      >
+        <line x1="6" y1="18" x2="6" y2="18.01" />
+        <line x1="14" y1="12" x2="14" y2="24" />
+        <line x1="22" y1="6" x2="22" y2="30" />
+        <line x1="30" y1="2" x2="30" y2="34" />
+        <line x1="38" y1="8" x2="38" y2="28" />
+        <line x1="46" y1="14" x2="46" y2="22" />
+        <line x1="54" y1="18" x2="54" y2="18.01" />
+      </svg>
+      <span
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: isFeatured ? "1.1rem" : "0.88rem",
+          fontWeight: 700,
+          letterSpacing: "-0.01em",
+          color: "#40271e",
+        }}
+      >
+        Sound Goose
+      </span>
+    </div>
+  );
+}
+
 export function BlogExplorer({ posts }: BlogExplorerProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -128,21 +182,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                       priority
                     />
                   ) : (
-                    <div
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#73513d",
-                        fontFamily: "var(--font-display)",
-                        fontSize: "1.75rem",
-                        fontWeight: 700,
-                      }}
-                    >
-                      Sound Goose 🪿
-                    </div>
+                    <WaveformPlaceholder size="featured" />
                   )}
                 </div>
 
@@ -219,21 +259,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                             className={styles.cardImage}
                           />
                         ) : (
-                          <div
-                            style={{
-                              height: "100%",
-                              width: "100%",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              color: "#73513d",
-                              fontFamily: "var(--font-display)",
-                              fontSize: "1.2rem",
-                              fontWeight: 600,
-                            }}
-                          >
-                            Sound Goose 🪿
-                          </div>
+                          <WaveformPlaceholder />
                         )}
                       </div>
 

@@ -37,6 +37,7 @@ export function HeaderNav() {
             alt="Sound Goose"
             width={150}
             height={50}
+            style={{ width: "auto" }}
             className={styles.logo}
             priority
           />

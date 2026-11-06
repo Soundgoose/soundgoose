@@ -4,45 +4,6 @@
   flex-direction: column;
 }
 
-/* ─── Nav ────────────────────────────────────── */
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1080px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1.25rem 2rem;
-}
-
-.logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  user-select: none;
-}
-
-.badge::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 /* ─── Hero ────────────────────────────────────── */
 
 .hero {
