@@ -447,7 +447,6 @@ export default async function NewsletterIssuePage({
           <Link href="/newsletter" className={styles.backButton}>
             &larr; Back to all newsletter editions
           </Link>
-          <ShareButtons title={issue.title} url={issueUrl} />
         </footer>
       </section>
     </article>

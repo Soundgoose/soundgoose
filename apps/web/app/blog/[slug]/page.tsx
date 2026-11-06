@@ -35,11 +35,11 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Article Not Found — Sound Goose",
+      title: "Article Not Found | Sound Goose",
     };
   }
 
-  const title = post.seo?.metaTitle || `${post.title} — Sound Goose`;
+  const title = post.seo?.metaTitle || `${post.title} | Sound Goose`;
   const description =
     post.seo?.metaDescription ||
     post.excerpt ||

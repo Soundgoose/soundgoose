@@ -28,8 +28,7 @@ function WaveformPlaceholder({
         alignItems: "center",
         justifyContent: "center",
         gap: isFeatured ? "0.85rem" : "0.5rem",
-        background:
-          "linear-gradient(135deg, rgba(229, 218, 208, 0.7) 0%, rgba(217, 166, 137, 0.4) 100%)",
+        background: "linear-gradient(135deg, #e5dad0 0%, #d9a689 100%)",
         color: "#40271e",
       }}
       aria-hidden="true"
@@ -54,7 +53,7 @@ function WaveformPlaceholder({
       <span
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: isFeatured ? "1.1rem" : "0.88rem",
+          fontSize: isFeatured ? "1.1rem" : "0.85rem",
           fontWeight: 700,
           letterSpacing: "-0.01em",
           color: "#40271e",
@@ -64,6 +63,11 @@ function WaveformPlaceholder({
       </span>
     </div>
   );
+}
+
+function formatIndex(index: number): string {
+  const num = index + 1;
+  return num < 10 ? `0${num}` : `${num}`;
 }
 
 export function BlogExplorer({ posts }: BlogExplorerProps) {
@@ -98,14 +102,14 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
     });
   }, [posts, selectedCategory, searchQuery]);
 
-  const featuredPost = filteredPosts[0];
+  const leadPost = filteredPosts[0];
   const gridPosts = filteredPosts.slice(1);
 
   return (
     <>
       <section
         className={styles.toolbar}
-        aria-label="Search and filter articles"
+        aria-label="Filter and search Liner Notes"
       >
         <div className={styles.categoriesList}>
           {categories.map((cat) => (
@@ -124,12 +128,13 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
         <div className={styles.searchBox}>
           <svg
             className={styles.searchIcon}
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            aria-hidden="true"
           >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -138,18 +143,18 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             type="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search articles..."
+            placeholder="Search entries..."
             className={styles.searchInput}
-            aria-label="Search articles"
+            aria-label="Search entries"
           />
         </div>
       </section>
 
       {filteredPosts.length === 0 ? (
         <div className={styles.emptyState}>
-          <h3 className={styles.emptyTitle}>No matching articles</h3>
+          <h3 className={styles.emptyTitle}>No entries found</h3>
           <p className={styles.emptyText}>
-            Try adjusting your search query or selecting a different category.
+            No articles matched your search or category filter.
           </p>
           <button
             onClick={() => {
@@ -163,22 +168,20 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
         </div>
       ) : (
         <>
-          {featuredPost && (
-            <section
-              className={styles.featuredSection}
-              aria-label="Featured Story"
-            >
+          {/* Lead Dispatch / Billboard Hero Story (01) */}
+          {leadPost && (
+            <section className={styles.leadSection} aria-label="Lead Story">
               <Link
-                href={`/blog/${featuredPost.slug.current}`}
-                className={styles.featuredCard}
+                href={`/blog/${leadPost.slug.current}`}
+                className={styles.leadLink}
               >
-                <div className={styles.featuredImageWrapper}>
-                  {featuredPost.coverImage ? (
+                <div className={styles.leadImageWrapper}>
+                  {leadPost.coverImage ? (
                     <Image
-                      src={urlForImage(featuredPost.coverImage)?.url() || ""}
-                      alt={featuredPost.coverImage.alt || featuredPost.title}
+                      src={urlForImage(leadPost.coverImage)?.url() || ""}
+                      alt={leadPost.coverImage.alt || leadPost.title}
                       fill
-                      className={styles.cardImage}
+                      className={styles.leadImage}
                       priority
                     />
                   ) : (
@@ -186,39 +189,34 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                   )}
                 </div>
 
-                <div className={styles.featuredContent}>
-                  <div className={styles.featuredBadge}>
-                    <span>★ Featured Story</span>
-                    <span>•</span>
-                    <span>
-                      {featuredPost.categories?.[0]?.title || "Field Notes"}
+                <div className={styles.leadContent}>
+                  <div className={styles.leadRankRow}>
+                    <span className={styles.rankNumber}>01</span>
+                    <span className={styles.kicker}>
+                      {leadPost.categories?.[0]?.title || "Lead Dispatch"}
                     </span>
                   </div>
 
-                  <h2 className={styles.featuredTitle}>{featuredPost.title}</h2>
+                  <h2 className={styles.leadTitle}>{leadPost.title}</h2>
 
-                  {featuredPost.excerpt && (
-                    <p className={styles.featuredExcerpt}>
-                      {featuredPost.excerpt}
-                    </p>
+                  {leadPost.excerpt && (
+                    <p className={styles.leadExcerpt}>{leadPost.excerpt}</p>
                   )}
 
-                  <div className={styles.articleMeta}>
-                    <span>
-                      {featuredPost.author?.name || "Sound Goose Team"}
+                  <div className={styles.leadMeta}>
+                    <span className={styles.bylineAuthor}>
+                      By {leadPost.author?.name || "Sound Goose Team"}
                     </span>
-                    <span>•</span>
-                    <time dateTime={featuredPost.publishedAt}>
-                      {new Date(featuredPost.publishedAt).toLocaleDateString(
+                    <span className={styles.metaDot}>·</span>
+                    <time dateTime={leadPost.publishedAt}>
+                      {new Date(leadPost.publishedAt).toLocaleDateString(
                         "en-US",
                         { month: "short", day: "numeric", year: "numeric" },
                       )}
                     </time>
-                    <span>•</span>
+                    <span className={styles.metaDot}>·</span>
                     <span>
-                      {calculateReadingTime(
-                        featuredPost.body || featuredPost.excerpt,
-                      )}{" "}
+                      {calculateReadingTime(leadPost.body || leadPost.excerpt)}{" "}
                       min read
                     </span>
                   </div>
@@ -227,49 +225,53 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
             </section>
           )}
 
+          {/* Follow-up Entries in Editorial Roster (02, 03, ...) */}
           {gridPosts.length > 0 && (
-            <section className={styles.grid} aria-label="Articles Grid">
-              {gridPosts.map((post) => {
-                const coverUrl = post.coverImage
-                  ? urlForImage(post.coverImage)?.url()
-                  : null;
-                const formattedDate = new Date(
-                  post.publishedAt,
-                ).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                });
-                const readTime = calculateReadingTime(
-                  post.body || post.excerpt,
-                );
+            <section aria-label="Liner Notes Entries">
+              <div className={styles.rosterHeader}>
+                <h3 className={styles.rosterTitle}>Dispatches</h3>
+              </div>
 
-                return (
-                  <article key={post._id}>
-                    <Link
-                      href={`/blog/${post.slug.current}`}
-                      className={styles.card}
-                    >
-                      <div className={styles.cardImageWrapper}>
-                        {coverUrl ? (
-                          <Image
-                            src={coverUrl}
-                            alt={post.coverImage?.alt || post.title}
-                            fill
-                            className={styles.cardImage}
-                          />
-                        ) : (
-                          <WaveformPlaceholder />
-                        )}
-                      </div>
+              <div className={styles.grid}>
+                {gridPosts.map((post, idx) => {
+                  const coverUrl = post.coverImage
+                    ? urlForImage(post.coverImage)?.url()
+                    : null;
+                  const formattedDate = new Date(
+                    post.publishedAt,
+                  ).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  });
+                  const readTime = calculateReadingTime(
+                    post.body || post.excerpt,
+                  );
+                  const rank = formatIndex(idx + 1);
 
-                      <div className={styles.cardContent}>
-                        <div className={styles.cardMetaRow}>
-                          <span className={styles.cardCategory}>
-                            {post.categories?.[0]?.title || "Article"}
-                          </span>
-                          <span className={styles.readTime}>
-                            {readTime} min read
+                  return (
+                    <article key={post._id} className={styles.articleItem}>
+                      <Link
+                        href={`/blog/${post.slug.current}`}
+                        className={styles.articleLink}
+                      >
+                        <div className={styles.cardImageWrapper}>
+                          {coverUrl ? (
+                            <Image
+                              src={coverUrl}
+                              alt={post.coverImage?.alt || post.title}
+                              fill
+                              className={styles.cardImage}
+                            />
+                          ) : (
+                            <WaveformPlaceholder />
+                          )}
+                        </div>
+
+                        <div className={styles.articleHeaderRow}>
+                          <span className={styles.itemRank}>{rank}</span>
+                          <span className={styles.itemKicker}>
+                            {post.categories?.[0]?.title || "Studio Note"}
                           </span>
                         </div>
 
@@ -280,21 +282,19 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                         )}
 
                         <div className={styles.cardFooter}>
-                          <span className={styles.cardAuthor}>
-                            {post.author?.name || "Sound Goose Team"}
-                          </span>
-                          <time
-                            dateTime={post.publishedAt}
-                            className={styles.cardDate}
-                          >
+                          <span>{post.author?.name || "Sound Goose Team"}</span>
+                          <span>·</span>
+                          <time dateTime={post.publishedAt}>
                             {formattedDate}
                           </time>
+                          <span>·</span>
+                          <span>{readTime} min read</span>
                         </div>
-                      </div>
-                    </Link>
-                  </article>
-                );
-              })}
+                      </Link>
+                    </article>
+                  );
+                })}
+              </div>
             </section>
           )}
         </>

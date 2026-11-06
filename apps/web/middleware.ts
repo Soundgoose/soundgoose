@@ -48,6 +48,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(rewriteUrl);
   }
 
+  // If requesting /studio on the public site, return 404 (Studio is strictly accessed via studio.soundgoose.com)
+  if (
+    !isStudio &&
+    (pathname === "/studio" || pathname.startsWith("/studio/"))
+  ) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   return NextResponse.next();
 }
 

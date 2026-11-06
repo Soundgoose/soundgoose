@@ -62,21 +62,6 @@
   font-weight: 600;
 }
 
-.studioLink {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(64, 39, 30, 0.08);
-  color: var(--brand);
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-
-.studioLink:hover {
-  background: rgba(64, 39, 30, 0.14);
-}
-
 .ctaLink {
   font-size: 0.85rem;
   padding: 0.45rem 1rem;
@@ -101,9 +86,6 @@
   }
   .logo {
     height: 32px;
-  }
-  .studioLink {
-    display: none;
   }
   .ctaLink {
     display: none;

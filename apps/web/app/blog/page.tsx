@@ -6,16 +6,16 @@ import styles from "./blog.module.css";
 export const revalidate = 60; // On-demand ISR fallback
 
 export const metadata: Metadata = {
-  title: "Blog — Sound Goose",
+  title: "Liner Notes | Sound Goose",
   description:
-    "Dispatches, technical deep dives, and perspectives on spatial audio, browser sound engines, and the future of music production.",
+    "Engineering dispatches, spatial audio research, and studio production notes from Sound Goose.",
   alternates: {
     canonical: "https://soundgoose.com/blog",
   },
   openGraph: {
-    title: "Blog — Sound Goose",
+    title: "Liner Notes | Sound Goose",
     description:
-      "Dispatches and technical deep dives on spatial audio, browser sound engines, and the future of music production.",
+      "Engineering dispatches, spatial audio research, and studio production notes from Sound Goose.",
     url: "https://soundgoose.com/blog",
     siteName: "Sound Goose",
     type: "website",
@@ -27,18 +27,13 @@ export default async function BlogIndexPage() {
 
   return (
     <main className={styles.container}>
-      <header className={styles.hero}>
-        <div className={styles.heroMeta}>
-          <span className={styles.eyebrow}>Studio Dispatch</span>
+      <header className={styles.masthead}>
+        <div className={styles.mastheadTop}>
+          <h1 className={styles.title}>Liner Notes</h1>
           <span className={styles.countBadge}>
-            {posts.length} {posts.length === 1 ? "Article" : "Articles"}
+            {posts.length} {posts.length === 1 ? "Dispatch" : "Dispatches"}
           </span>
         </div>
-        <h1 className={styles.title}>Field Notes & Engineering</h1>
-        <p className={styles.description}>
-          Deep dives on interactive spatial audio, WebAudio engine performance,
-          and workflows for the next generation of independent artists.
-        </p>
       </header>
 
       <BlogExplorer posts={posts} />

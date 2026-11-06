@@ -62,15 +62,6 @@ export function HeaderNav() {
               </Link>
             </li>
             <li>
-              <Link
-                href="/studio"
-                className={styles.studioLink}
-                title="Open Content Studio"
-              >
-                Studio ✎
-              </Link>
-            </li>
-            <li>
               <Link href="/#waitlist" className={styles.ctaLink}>
                 Early Access
               </Link>

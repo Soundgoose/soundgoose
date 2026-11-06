@@ -26,21 +26,25 @@ export function NewsletterExplorer({ issues }: NewsletterExplorerProps) {
 
   return (
     <>
-      <section className={styles.toolbar} aria-label="Search newsletter issues">
+      <section
+        className={styles.toolbar}
+        aria-label="Search weekly digest issues"
+      >
         <div className={styles.archiveNote}>
-          Showing {filteredIssues.length} of {issues.length}{" "}
+          Archive &bull; {filteredIssues.length} of {issues.length}{" "}
           {issues.length === 1 ? "edition" : "editions"}
         </div>
 
         <div className={styles.searchBox}>
           <svg
             className={styles.searchIcon}
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            aria-hidden="true"
           >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -49,73 +53,84 @@ export function NewsletterExplorer({ issues }: NewsletterExplorerProps) {
             type="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search past issues..."
+            placeholder="Search digest archive..."
             className={styles.searchInput}
-            aria-label="Search past issues"
+            aria-label="Search digest archive"
           />
         </div>
       </section>
 
-      <section
-        className={styles.timeline}
-        aria-label="Newsletter Issues Archive"
-      >
-        {filteredIssues.map((issue) => {
-          const formattedDate = new Date(issue.publishedAt).toLocaleDateString(
-            "en-US",
-            {
+      {filteredIssues.length === 0 ? (
+        <div className={styles.emptyState}>
+          <h3 className={styles.emptyTitle}>No editions found</h3>
+          <p className={styles.emptyText}>
+            No digest editions matched your search query.
+          </p>
+          <button
+            onClick={() => setSearchQuery("")}
+            className={styles.resetButton}
+          >
+            Reset Search
+          </button>
+        </div>
+      ) : (
+        <section className={styles.timeline} aria-label="Weekly Digest Issues">
+          {filteredIssues.map((issue) => {
+            const formattedDate = new Date(
+              issue.publishedAt,
+            ).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
-            },
-          );
-          const readTime = calculateReadingTime(
-            issue.fullBody || issue.emailExcerpt,
-          );
+            });
+            const readTime = calculateReadingTime(
+              issue.fullBody || issue.emailExcerpt,
+            );
 
-          return (
-            <article key={issue._id}>
-              <Link
-                href={`/newsletter/${issue.slug.current}`}
-                className={styles.issueCard}
-              >
-                <div className={styles.cardHeader}>
-                  <div className={styles.badgeGroup}>
-                    <span className={styles.issueBadge}>
+            return (
+              <article key={issue._id}>
+                <Link
+                  href={`/newsletter/${issue.slug.current}`}
+                  className={styles.issueCard}
+                >
+                  <div className={styles.issueColMeta}>
+                    <span className={styles.issueNumber}>
                       Issue #{issue.issueNumber}
                     </span>
+                    <time
+                      dateTime={issue.publishedAt}
+                      className={styles.issueDate}
+                    >
+                      {formattedDate}
+                    </time>
                     <span className={styles.readTime}>{readTime} min read</span>
                   </div>
-                  <time
-                    dateTime={issue.publishedAt}
-                    className={styles.issueDate}
-                  >
-                    {formattedDate}
-                  </time>
-                </div>
 
-                <h2 className={styles.issueTitle}>{issue.title}</h2>
+                  <div className={styles.issueColBody}>
+                    <h2 className={styles.issueTitle}>{issue.title}</h2>
 
-                {issue.emailSubject && (
-                  <div className={styles.subjectLineBox}>
-                    <span className={styles.subjectLabel}>Delivered as:</span>
-                    <span>&ldquo;{issue.emailSubject}&rdquo;</span>
+                    {issue.emailSubject && (
+                      <div className={styles.subjectLineBox}>
+                        <span className={styles.subjectLabel}>Subject:</span>
+                        <span>&ldquo;{issue.emailSubject}&rdquo;</span>
+                      </div>
+                    )}
+
+                    <p className={styles.issueExcerpt}>
+                      {issue.metaDescription || issue.emailExcerpt}
+                    </p>
                   </div>
-                )}
 
-                <p className={styles.issueExcerpt}>
-                  {issue.metaDescription || issue.emailExcerpt}
-                </p>
-
-                <div className={styles.cardFooter}>
-                  <span>Read Full Edition</span>
-                  <span className={styles.readArrow}>→</span>
-                </div>
-              </Link>
-            </article>
-          );
-        })}
-      </section>
+                  <div className={styles.issueColAction} aria-hidden="true">
+                    <span>Read Edition</span>
+                    <span className={styles.actionArrow}>&rarr;</span>
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
+        </section>
+      )}
     </>
   );
 }
