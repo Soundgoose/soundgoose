@@ -3,7 +3,8 @@ import { getNewsletterIssues } from "../../sanity/lib/queries";
 import { NewsletterExplorer } from "./newsletter-explorer";
 import styles from "./newsletter.module.css";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Weekly Digest | Sound Goose",

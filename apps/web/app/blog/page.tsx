@@ -3,7 +3,8 @@ import { getBlogPosts } from "../../sanity/lib/queries";
 import { BlogExplorer } from "./blog-explorer";
 import styles from "./blog.module.css";
 
-export const revalidate = 60; // On-demand ISR fallback
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Liner Notes | Sound Goose",
