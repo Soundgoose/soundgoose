@@ -20,14 +20,21 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isStudio = isStudioHost(host);
 
-  // Studio Subdomain Routing (without browser pop-up auth or redirect)
+  // 1. Studio Subdomain Operations Portal
   if (isStudio) {
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-is-studio", "true");
+
     // API endpoints (e.g. /api/studio/auth) should never be rewritten
     if (pathname.startsWith("/api/")) {
-      return NextResponse.next();
+      return NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      });
     }
 
-    // If redundant /studio requested on studio subdomain, normalize to /
+    // Normalize redundant /studio requested on studio subdomain
     if (pathname === "/studio" || pathname.startsWith("/studio/")) {
       const cleanPath = pathname.replace(/^\/studio/, "") || "/";
       const redirectUrl = request.nextUrl.clone();
@@ -42,17 +49,42 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(redirectUrl, 307);
     }
 
-    // Rewrite internal request to app/studio catch-all route preserving search params
+    const session = request.cookies.get("sg_studio_session")?.value;
+    const isAuthenticated = session === "authenticated";
+
+    // Unauthenticated: rewrite all paths to internal passcode gate (/studio/login)
+    if (!isAuthenticated) {
+      const loginRewrite = request.nextUrl.clone();
+      loginRewrite.pathname = "/studio/login";
+      return NextResponse.rewrite(loginRewrite, {
+        request: {
+          headers: requestHeaders,
+        },
+      });
+    }
+
+    // Authenticated visiting /login -> redirect to overview (/)
+    if (pathname === "/login") {
+      const homeUrl = request.nextUrl.clone();
+      homeUrl.pathname = "/";
+      if (host) {
+        homeUrl.host = host;
+      }
+      return NextResponse.redirect(homeUrl, 307);
+    }
+
+    // Authenticated -> rewrite to internal /studio route group
     const rewriteUrl = request.nextUrl.clone();
     rewriteUrl.pathname = `/studio${pathname === "/" ? "" : pathname}`;
-    return NextResponse.rewrite(rewriteUrl);
+    return NextResponse.rewrite(rewriteUrl, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
-  // If requesting /studio on the public site, return 404 (Studio is strictly accessed via studio.soundgoose.com)
-  if (
-    !isStudio &&
-    (pathname === "/studio" || pathname.startsWith("/studio/"))
-  ) {
+  // 2. Public Site: Block any access to /studio with 404
+  if (!isStudio && (pathname === "/studio" || pathname.startsWith("/studio/"))) {
     return new NextResponse("Not Found", { status: 404 });
   }
 

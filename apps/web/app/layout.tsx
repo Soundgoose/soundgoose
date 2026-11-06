@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { HeaderNav } from "./components/header-nav";
@@ -52,15 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const isStudio = headersList.get("x-is-studio") === "true";
+
   return (
     <html lang="en">
       <body className={`${fraunces.variable} ${plusJakartaSans.variable}`}>
-        <HeaderNav />
+        {!isStudio && <HeaderNav />}
         {children}
         <Analytics />
       </body>

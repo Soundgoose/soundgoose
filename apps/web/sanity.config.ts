@@ -5,7 +5,7 @@ import { projectId, dataset } from "./sanity/env";
 import { structure } from "./sanity/structure";
 
 export default defineConfig({
-  basePath: "/",
+  basePath: "/content",
   name: "soundgoose-studio",
   title: "Sound Goose Studio",
   projectId,
