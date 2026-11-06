@@ -34,6 +34,11 @@ export function middleware(request: NextRequest) {
       });
     }
 
+    // Allow public content views (/blog, /newsletter) to render directly on any host
+    if (pathname.startsWith("/blog") || pathname.startsWith("/newsletter")) {
+      return NextResponse.next();
+    }
+
     // Normalize redundant /studio requested on studio subdomain
     if (pathname === "/studio" || pathname.startsWith("/studio/")) {
       const cleanPath = pathname.replace(/^\/studio/, "") || "/";
