@@ -1,19 +1,9 @@
-"use client";
+import { StudioView } from "./studio-view";
 
-import { NextStudio } from "next-sanity/studio";
-import config from "../../../../../sanity.config";
+export const metadata = {
+  title: "Content Studio | Sound Goose Studio",
+};
 
-export default function ContentStudioPage() {
-  return (
-    <div
-      style={{
-        flex: 1,
-        height: "calc(100vh - 52px)",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <NextStudio config={config} />
-    </div>
-  );
+export default function StudioContentPage() {
+  return <StudioView />;
 }
