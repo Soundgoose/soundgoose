@@ -24,15 +24,6 @@ export function NewsletterExplorer({ issues }: NewsletterExplorerProps) {
     );
   }, [issues, searchQuery]);
 
-  if (issues.length === 0) {
-    return (
-      <div className={styles.emptyState} style={{ padding: "5rem 1.5rem" }}>
-        <h2 className={styles.emptyTitle}>Nothing to show here</h2>
-        <p className={styles.emptyText}>No newsletters found.</p>
-      </div>
-    );
-  }
-
   return (
     <>
       <section

@@ -105,15 +105,6 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
   const leadPost = filteredPosts[0];
   const gridPosts = filteredPosts.slice(1);
 
-  if (posts.length === 0) {
-    return (
-      <div className={styles.emptyState} style={{ padding: "5rem 1.5rem" }}>
-        <h2 className={styles.emptyTitle}>Nothing to show here</h2>
-        <p className={styles.emptyText}>No blog posts found.</p>
-      </div>
-    );
-  }
-
   return (
     <>
       <section
