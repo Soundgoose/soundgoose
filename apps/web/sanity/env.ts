@@ -18,9 +18,9 @@ export function getProjectId(): string {
       // ignore storage access errors
     }
   }
-  return "";
+  return "qcz8ykkg";
 }
 
-export const projectId = getProjectId() || "placeholder-project-id";
+export const projectId = getProjectId() || "qcz8ykkg";
 
 export const isConfigured = Boolean(getProjectId());
