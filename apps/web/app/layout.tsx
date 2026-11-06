@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { HeaderNav } from "./components/header-nav";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -46,14 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const isStudio = headersList.get("x-is-studio") === "true";
+
   return (
     <html lang="en">
       <body className={`${fraunces.variable} ${plusJakartaSans.variable}`}>
+        {!isStudio && <HeaderNav />}
         {children}
         <Analytics />
       </body>

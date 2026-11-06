@@ -1,6 +1,18 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
+  "agentGuidance": true,
   "ui": "tui",
+  "globalEnv": [
+    "ATTIO_API_KEY",
+    "PURELYMAIL_USER",
+    "PURELYMAIL_PASSWORD",
+    "EMAIL_FROM_ADDRESS",
+    "STUDIO_PASSCODE",
+    "RESEND_API_KEY",
+    "NEXT_PUBLIC_SANITY_PROJECT_ID",
+    "NEXT_PUBLIC_SANITY_DATASET",
+    "NEXT_PUBLIC_SANITY_API_VERSION"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

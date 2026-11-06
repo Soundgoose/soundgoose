@@ -1,0 +1,46 @@
+.tocNav {
+  border-left: 1.5px solid var(--border-strong);
+  padding: 0.25rem 0 0.5rem 1.25rem;
+}
+
+.tocHeading {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand);
+  margin-bottom: 0.85rem;
+}
+
+.tocList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0;
+  margin: 0;
+}
+
+.tocItem {
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.tocItemH3 {
+  padding-left: 0.85rem;
+  font-size: 0.82rem;
+}
+
+.tocLink {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  display: inline-block;
+}
+
+.tocLink:hover {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

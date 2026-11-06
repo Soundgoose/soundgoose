@@ -61,3 +61,8 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* When Sanity Studio is mounted, hide website header */
+body:has(#sanity) header {
+  display: none !important;
+}
