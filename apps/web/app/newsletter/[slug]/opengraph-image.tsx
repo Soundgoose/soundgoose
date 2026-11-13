@@ -45,6 +45,7 @@ export default async function Image({
       >
         <div
           style={{
+            display: "flex",
             fontSize: 28,
             fontWeight: 700,
             color: "#40271e",
@@ -55,6 +56,7 @@ export default async function Image({
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 22,
             fontWeight: 700,
             color: "#40271e",
@@ -76,6 +78,7 @@ export default async function Image({
       >
         <div
           style={{
+            display: "flex",
             fontSize: 52,
             fontWeight: 800,
             color: "#40271e",
@@ -100,6 +103,7 @@ export default async function Image({
       >
         <div
           style={{
+            display: "flex",
             fontSize: 22,
             fontWeight: 600,
             color: "#40271e",
@@ -109,6 +113,7 @@ export default async function Image({
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 20,
             color: "#73513d",
           }}
