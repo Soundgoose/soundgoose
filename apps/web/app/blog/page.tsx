@@ -28,15 +28,6 @@ export default async function BlogIndexPage() {
 
   return (
     <main className={styles.container}>
-      <header className={styles.masthead}>
-        <div className={styles.mastheadTop}>
-          <h1 className={styles.title}>Liner Notes</h1>
-          <span className={styles.countBadge}>
-            {posts.length} {posts.length === 1 ? "Dispatch" : "Dispatches"}
-          </span>
-        </div>
-      </header>
-
       <BlogExplorer posts={posts} />
     </main>
   );
