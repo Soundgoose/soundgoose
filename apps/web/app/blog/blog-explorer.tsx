@@ -104,6 +104,9 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
 
   const leadPost = filteredPosts[0];
   const gridPosts = filteredPosts.slice(1);
+  const leadCoverUrl = leadPost?.coverImage
+    ? urlForImage(leadPost.coverImage)?.url()
+    : null;
 
   return (
     <>
@@ -176,10 +179,10 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                 className={styles.leadLink}
               >
                 <div className={styles.leadImageWrapper}>
-                  {leadPost.coverImage ? (
+                  {leadCoverUrl ? (
                     <Image
-                      src={urlForImage(leadPost.coverImage)?.url() || ""}
-                      alt={leadPost.coverImage.alt || leadPost.title}
+                      src={leadCoverUrl}
+                      alt={leadPost.coverImage?.alt || leadPost.title}
                       fill
                       className={styles.leadImage}
                       priority

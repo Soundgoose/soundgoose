@@ -172,13 +172,13 @@ export const portableTextComponents: PortableTextComponents = {
   },
   marks: {
     link: ({ children, value }) => {
-      const rel = !value.href.startsWith("/")
-        ? "noreferrer noopener"
-        : undefined;
-      const target = !value.href.startsWith("/") ? "_blank" : undefined;
+      const href = value?.href || "#";
+      const isInternal = href.startsWith("/") || href.startsWith("#");
+      const rel = !isInternal ? "noreferrer noopener" : undefined;
+      const target = !isInternal ? "_blank" : undefined;
       return (
         <Link
-          href={value.href}
+          href={href}
           rel={rel}
           target={target}
           style={{
