@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SyncAttioButton } from "../sync-attio-button";
 
 export const metadata = {
   title: "Broadcasts | Sound Goose Studio",
@@ -56,7 +57,15 @@ export default function StudioBroadcastsPage() {
           </h1>
         </div>
 
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "0.75rem",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <SyncAttioButton label="Sync Attio Waitlist ↻" />
           <Link
             href="/content"
             style={{
@@ -69,7 +78,7 @@ export default function StudioBroadcastsPage() {
               textDecoration: "none",
             }}
           >
-            Compose New Issue in Sanity →
+            Compose in Sanity Studio →
           </Link>
         </div>
       </div>

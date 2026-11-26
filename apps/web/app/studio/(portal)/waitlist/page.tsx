@@ -1,3 +1,5 @@
+import { SyncAttioButton } from "../sync-attio-button";
+
 export const metadata = {
   title: "Waitlist & CRM | Sound Goose Studio",
 };
@@ -54,7 +56,15 @@ export default function StudioWaitlistPage() {
           </h1>
         </div>
 
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "0.75rem",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <SyncAttioButton label="Sync to Resend Audience ↻" />
           <button
             style={{
               backgroundColor: "#201b18",
