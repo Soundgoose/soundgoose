@@ -60,13 +60,54 @@ export const postType = defineType({
       title: "Excerpt / Summary",
       type: "text",
       rows: 3,
-      description: "Brief summary used for SEO metadata and card previews",
+      description: "Brief summary used for SEO metadata, card previews, and email teasers",
       validation: (rule) => rule.max(300),
     }),
     defineField({
       name: "body",
       title: "Body Content",
       type: "blockContent",
+    }),
+    defineField({
+      name: "emailSubject",
+      title: "Email Subject Line",
+      type: "string",
+      description:
+        "Custom subject line for Resend broadcast. If blank, defaults to post title.",
+    }),
+    defineField({
+      name: "emailExcerpt",
+      title: "Email Teaser Excerpt",
+      type: "text",
+      rows: 4,
+      description:
+        "Custom teaser text for the email before the 'Read Full Article' CTA. If blank, defaults to the excerpt above.",
+    }),
+    defineField({
+      name: "broadcastStatus",
+      title: "Mailing List Broadcast Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Draft", value: "draft" },
+          { title: "Ready to Broadcast", value: "ready" },
+          { title: "Broadcast Sent", value: "sent" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "draft",
+    }),
+    defineField({
+      name: "broadcastSentAt",
+      title: "Broadcast Sent At",
+      type: "datetime",
+      readOnly: true,
+    }),
+    defineField({
+      name: "broadcastResendId",
+      title: "Resend Broadcast ID",
+      type: "string",
+      readOnly: true,
     }),
     defineField({
       name: "seo",
@@ -98,17 +139,19 @@ export const postType = defineType({
       author: "author.name",
       media: "coverImage",
       publishedAt: "publishedAt",
+      status: "broadcastStatus",
     },
     prepare(selection) {
-      const { author, publishedAt } = selection;
+      const { author, publishedAt, status } = selection;
       const dateFormatted = publishedAt
         ? new Date(publishedAt).toLocaleDateString()
         : "Unpublished";
+      const statusBadge = status === "sent" ? " [Broadcast Sent]" : "";
       return {
         ...selection,
         subtitle: author
-          ? `By ${author} • ${dateFormatted}`
-          : `${dateFormatted}`,
+          ? `By ${author} • ${dateFormatted}${statusBadge}`
+          : `${dateFormatted}${statusBadge}`,
       };
     },
   },
