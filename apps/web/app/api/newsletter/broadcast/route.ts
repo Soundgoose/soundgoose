@@ -49,11 +49,7 @@ export async function POST(request: Request) {
     const postSlug =
       typeof slug === "string" ? slug : slug?.current || doc?.slug?.current;
     const postExcerpt =
-      emailExcerpt ||
-      excerpt ||
-      doc?.emailExcerpt ||
-      doc?.excerpt ||
-      "";
+      emailExcerpt || excerpt || doc?.emailExcerpt || doc?.excerpt || "";
 
     if (!postTitle || !postSlug) {
       return NextResponse.json(
@@ -120,7 +116,8 @@ export async function POST(request: Request) {
 
     const subject = isPost
       ? doc?.emailSubject || `Sound Goose: ${postTitle}`
-      : doc?.emailSubject || `Sound Goose Issue #${issueNumber || 1}: ${postTitle}`;
+      : doc?.emailSubject ||
+        `Sound Goose Issue #${issueNumber || 1}: ${postTitle}`;
 
     const broadcastResult = await sendResendBroadcast({
       subject,

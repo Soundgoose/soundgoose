@@ -15,7 +15,10 @@ export default defineConfig({
   schema,
   document: {
     actions: (prev, context) => {
-      if (context.schemaType === "post" || context.schemaType === "newsletter") {
+      if (
+        context.schemaType === "post" ||
+        context.schemaType === "newsletter"
+      ) {
         return [...prev, SendToMailingListAction];
       }
       return prev;

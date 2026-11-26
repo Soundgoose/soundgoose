@@ -60,7 +60,8 @@ export const postType = defineType({
       title: "Excerpt / Summary",
       type: "text",
       rows: 3,
-      description: "Brief summary used for SEO metadata, card previews, and email teasers",
+      description:
+        "Brief summary used for SEO metadata, card previews, and email teasers",
       validation: (rule) => rule.max(300),
     }),
     defineField({

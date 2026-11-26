@@ -38,7 +38,9 @@ export function SyncAttioButton({
   };
 
   return (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem" }}>
+    <div
+      style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem" }}
+    >
       <button
         onClick={handleSync}
         disabled={loading}

@@ -20,7 +20,10 @@ export async function POST(request: Request) {
     try {
       body = JSON.parse(rawBody);
     } catch {
-      return NextResponse.json({ ok: false, error: "Invalid JSON payload" }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Invalid JSON payload" },
+        { status: 400 },
+      );
     }
 
     // Optional webhook secret verification
@@ -55,7 +58,10 @@ export async function POST(request: Request) {
     const values = (eventData.values as Record<string, unknown>) || {};
     const emailList = values.email_addresses as AttioEmailValue[] | undefined;
     if (Array.isArray(emailList) && emailList.length > 0) {
-      email = emailList[0]?.email_address || emailList[0]?.original_email_address || null;
+      email =
+        emailList[0]?.email_address ||
+        emailList[0]?.original_email_address ||
+        null;
     }
 
     const nameList = values.name as AttioNameValue[] | undefined;
@@ -67,7 +73,7 @@ export async function POST(request: Request) {
     // Case 2: Event is a list entry (waitlist entry) with parent_record_id
     const parentRecordId =
       (eventData.parent_record_id as string) ||
-      ((eventData.id as Record<string, string>)?.record_id);
+      (eventData.id as Record<string, string>)?.record_id;
 
     if (!email && parentRecordId && apiKey) {
       try {
@@ -84,9 +90,13 @@ export async function POST(request: Request) {
         if (personRes.ok) {
           const personData = await personRes.json();
           const personValues = personData?.data?.values;
-          const pEmails = personValues?.email_addresses as AttioEmailValue[] | undefined;
+          const pEmails = personValues?.email_addresses as
+            AttioEmailValue[] | undefined;
           if (Array.isArray(pEmails) && pEmails.length > 0) {
-            email = pEmails[0]?.email_address || pEmails[0]?.original_email_address || null;
+            email =
+              pEmails[0]?.email_address ||
+              pEmails[0]?.original_email_address ||
+              null;
           }
 
           const pNames = personValues?.name as AttioNameValue[] | undefined;
@@ -96,7 +106,10 @@ export async function POST(request: Request) {
           }
         }
       } catch (attioErr) {
-        console.warn("[Attio Webhook] Could not resolve person details from Attio API:", attioErr);
+        console.warn(
+          "[Attio Webhook] Could not resolve person details from Attio API:",
+          attioErr,
+        );
       }
     }
 
@@ -116,9 +129,14 @@ export async function POST(request: Request) {
     });
 
     if (!syncRes.ok) {
-      console.warn(`[Attio Webhook] Resend sync warning for ${email}:`, syncRes.error);
+      console.warn(
+        `[Attio Webhook] Resend sync warning for ${email}:`,
+        syncRes.error,
+      );
     } else {
-      console.log(`[Attio Webhook] Successfully synced contact ${email} to Resend Audience.`);
+      console.log(
+        `[Attio Webhook] Successfully synced contact ${email} to Resend Audience.`,
+      );
     }
 
     return NextResponse.json({

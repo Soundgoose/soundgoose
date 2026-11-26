@@ -114,10 +114,10 @@ export async function POST(request: Request) {
 
         const personData = await personRes.json();
         const pValues = personData?.data?.values;
-        const pEmails = pValues?.email_addresses as AttioEmailValue[] | undefined;
+        const pEmails = pValues?.email_addresses as
+          AttioEmailValue[] | undefined;
         const email =
-          pEmails?.[0]?.email_address ||
-          pEmails?.[0]?.original_email_address;
+          pEmails?.[0]?.email_address || pEmails?.[0]?.original_email_address;
 
         if (email && email.includes("@")) {
           const syncResult = await syncContactToResend({
@@ -134,7 +134,9 @@ export async function POST(request: Request) {
         }
       } catch (entryErr: unknown) {
         failedCount++;
-        errors.push(entryErr instanceof Error ? entryErr.message : String(entryErr));
+        errors.push(
+          entryErr instanceof Error ? entryErr.message : String(entryErr),
+        );
       }
     }
 
@@ -161,19 +163,25 @@ export async function GET() {
   try {
     const resend = getResendClient();
     if (!resend) {
-      return NextResponse.json({ ok: false, error: "RESEND_API_KEY missing" }, { status: 500 });
+      return NextResponse.json(
+        { ok: false, error: "RESEND_API_KEY missing" },
+        { status: 500 },
+      );
     }
 
     const audienceId = await getResendAudienceId();
     if (!audienceId) {
-      return NextResponse.json({ ok: false, error: "No audience found" }, { status: 404 });
+      return NextResponse.json(
+        { ok: false, error: "No audience found" },
+        { status: 404 },
+      );
     }
 
     // List contacts count
     const contactsRes = await resend.contacts.list({ audienceId });
     const count = Array.isArray(contactsRes.data)
       ? contactsRes.data.length
-      : (contactsRes.data as { data?: unknown[] } | null)?.data?.length ?? 0;
+      : ((contactsRes.data as { data?: unknown[] } | null)?.data?.length ?? 0);
 
     return NextResponse.json({
       ok: true,

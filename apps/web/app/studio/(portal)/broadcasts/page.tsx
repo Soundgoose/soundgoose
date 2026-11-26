@@ -57,7 +57,14 @@ export default function StudioBroadcastsPage() {
           </h1>
         </div>
 
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "0.75rem",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <SyncAttioButton label="Sync Attio Waitlist ↻" />
           <Link
             href="/content"

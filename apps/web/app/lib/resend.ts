@@ -34,7 +34,11 @@ export async function getResendAudienceId(): Promise<string | null> {
 
   try {
     const listRes = await resend.audiences.list();
-    if (listRes.data && Array.isArray(listRes.data) && listRes.data.length > 0) {
+    if (
+      listRes.data &&
+      Array.isArray(listRes.data) &&
+      listRes.data.length > 0
+    ) {
       const firstAudience = listRes.data[0];
       if (firstAudience?.id) {
         return firstAudience.id;
@@ -70,7 +74,8 @@ export async function syncContactToResend({
   if (!targetAudienceId) {
     return {
       ok: false,
-      error: "RESEND_AUDIENCE_ID is not configured and could not be discovered.",
+      error:
+        "RESEND_AUDIENCE_ID is not configured and could not be discovered.",
     };
   }
 
@@ -113,7 +118,11 @@ export async function sendResendBroadcast({
   previewText,
   audienceId,
   from,
-}: BroadcastPayload): Promise<{ ok: boolean; broadcastId?: string; error?: string }> {
+}: BroadcastPayload): Promise<{
+  ok: boolean;
+  broadcastId?: string;
+  error?: string;
+}> {
   const resend = getResendClient();
   if (!resend) {
     return { ok: false, error: "RESEND_API_KEY is not configured." };
@@ -123,17 +132,22 @@ export async function sendResendBroadcast({
   if (!targetAudienceId) {
     return {
       ok: false,
-      error: "RESEND_AUDIENCE_ID is not configured and could not be discovered.",
+      error:
+        "RESEND_AUDIENCE_ID is not configured and could not be discovered.",
     };
   }
 
   const fromAddress =
-    from || process.env.EMAIL_FROM_ADDRESS || "Sound Goose <hello@soundgoose.com>";
+    from ||
+    process.env.EMAIL_FROM_ADDRESS ||
+    "Sound Goose <hello@soundgoose.com>";
 
   try {
     const broadcastRes = await resend.broadcasts.create({
       audienceId: targetAudienceId,
-      from: fromAddress.includes("<") ? fromAddress : `Sound Goose <${fromAddress}>`,
+      from: fromAddress.includes("<")
+        ? fromAddress
+        : `Sound Goose <${fromAddress}>`,
       subject,
       html,
       previewText,
@@ -154,6 +168,9 @@ export async function sendResendBroadcast({
     return { ok: true, broadcastId };
   } catch (err: unknown) {
     console.error("[Resend Broadcast] Error:", err);
-    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : String(err),
+    };
   }
 }

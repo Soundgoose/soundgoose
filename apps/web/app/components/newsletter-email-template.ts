@@ -35,9 +35,7 @@ export function generateEditorialEmailHtml({
     ? `${baseUrl}/blog?utm_source=newsletter&utm_medium=email&utm_campaign=archive`
     : `${baseUrl}/newsletter?utm_source=newsletter&utm_medium=email&utm_campaign=archive`;
 
-  const badgeText = isPost
-    ? "New Dispatch"
-    : `Issue #${issueNumber || 1}`;
+  const badgeText = isPost ? "New Dispatch" : `Issue #${issueNumber || 1}`;
 
   const ctaButtonText = isPost
     ? "Read Full Article on Sound Goose &rarr;"

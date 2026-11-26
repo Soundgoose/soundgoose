@@ -37,9 +37,7 @@ export const SendToMailingListAction: DocumentActionComponent = (
   const title = (doc?.title as string) || "Untitled";
   const slug = (doc?.slug as { current?: string } | undefined)?.current;
   const excerpt =
-    (doc?.emailExcerpt as string) ||
-    (doc?.excerpt as string) ||
-    "";
+    (doc?.emailExcerpt as string) || (doc?.excerpt as string) || "";
   const issueNumber = doc?.issueNumber as number | undefined;
 
   const handleSend = async () => {
@@ -106,7 +104,9 @@ export const SendToMailingListAction: DocumentActionComponent = (
     return null;
   }
 
-  const label = isAlreadySent ? "Resend to Mailing List" : "Send to Mailing List";
+  const label = isAlreadySent
+    ? "Resend to Mailing List"
+    : "Send to Mailing List";
 
   return {
     label: isSending ? "Broadcasting..." : label,
