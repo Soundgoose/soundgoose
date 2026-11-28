@@ -13,6 +13,14 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
+        <p className={styles.footerText}>
+          &copy; {new Date().getFullYear()} Sound Goose{" "}
+          <span className={styles.separator}>•</span> Built for independent
+          artists
+        </p>
+        <span className={styles.separator} aria-hidden="true">
+          •
+        </span>
         <div className={styles.socials} aria-label="Social links">
           <a
             href="https://www.instagram.com/soundgoosemusic"
@@ -23,8 +31,8 @@ export default function Home() {
             title="Instagram"
           >
             <svg
-              width="16"
-              height="16"
+              width="15"
+              height="15"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -47,8 +55,8 @@ export default function Home() {
             title="X (Twitter)"
           >
             <svg
-              width="15"
-              height="15"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
@@ -57,11 +65,6 @@ export default function Home() {
             </svg>
           </a>
         </div>
-        <p className={styles.footerText}>
-          &copy; {new Date().getFullYear()} Sound Goose{" "}
-          <span className={styles.separator}>•</span> Built for independent
-          artists
-        </p>
       </footer>
     </div>
   );
