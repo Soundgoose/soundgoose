@@ -144,7 +144,7 @@ export const newsletterType = defineType({
       name: "canonicalCtaLabel",
       title: "Part 5: CTA Button Label",
       type: "string",
-      initialValue: "Try Sound Goose Canvas",
+      initialValue: "Try Soundgoose Canvas",
     }),
     defineField({
       name: "canonicalCtaUrl",
@@ -157,7 +157,7 @@ export const newsletterType = defineType({
       title: "Email Subject Line",
       type: "string",
       description:
-        "The subject line delivered to inboxes (e.g., 'Sound Goose Issue #4: The Future of Spatial Audio')",
+        "The subject line delivered to inboxes (e.g., 'Soundgoose Issue #4: The Future of Spatial Audio')",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -166,7 +166,7 @@ export const newsletterType = defineType({
       type: "text",
       rows: 5,
       description:
-        "The introductory teaser body included in the email before the 'Read More on Sound Goose' button.",
+        "The introductory teaser body included in the email before the 'Read More on Soundgoose' button.",
       validation: (rule) => rule.required(),
     }),
     defineField({

@@ -62,13 +62,13 @@ export async function POST(request: Request) {
 
     const fromAddress =
       process.env.EMAIL_FROM_ADDRESS || "hello@soundgoose.com";
-    const subject = `Sound Goose Issue #${issueNumber || 1}: ${title}`;
+    const subject = `Soundgoose Issue #${issueNumber || 1}: ${title}`;
 
     if (resendAudienceId) {
       // Use Resend Broadcast API
       const broadcastRes = await resend.broadcasts.create({
         audienceId: resendAudienceId,
-        from: `Sound Goose <${fromAddress}>`,
+        from: `Soundgoose <${fromAddress}>`,
         subject,
         html,
       });

@@ -59,7 +59,7 @@ function WaveformPlaceholder({
           color: "#40271e",
         }}
       >
-        Sound Goose
+        Soundgoose
       </span>
     </div>
   );
@@ -217,7 +217,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
 
                   <div className={styles.leadMeta}>
                     <span className={styles.bylineAuthor}>
-                      By {leadPost.author?.name || "Sound Goose Team"}
+                      By {leadPost.author?.name || "Soundgoose Team"}
                     </span>
                     <span className={styles.metaDot}>·</span>
                     <time dateTime={leadPost.publishedAt}>
@@ -294,7 +294,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
                         )}
 
                         <div className={styles.cardFooter}>
-                          <span>{post.author?.name || "Sound Goose Team"}</span>
+                          <span>{post.author?.name || "Soundgoose Team"}</span>
                           <span>·</span>
                           <time dateTime={post.publishedAt}>
                             {formattedDate}

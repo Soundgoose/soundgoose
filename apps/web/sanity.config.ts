@@ -7,7 +7,7 @@ import { structure } from "./sanity/structure";
 export default defineConfig({
   basePath: "/content",
   name: "soundgoose-studio",
-  title: "Sound Goose Studio",
+  title: "Soundgoose Studio",
   projectId,
   dataset,
   plugins: [structureTool({ structure })],

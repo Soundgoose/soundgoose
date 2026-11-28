@@ -31,7 +31,7 @@ export function PortalNav() {
         <Link href="/" className={styles.brandLockup}>
           <Image
             src="/logo.png"
-            alt="Sound Goose"
+            alt="Soundgoose"
             width={110}
             height={32}
             style={{ width: "auto", height: "24px" }}

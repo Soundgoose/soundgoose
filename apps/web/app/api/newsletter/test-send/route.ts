@@ -45,14 +45,14 @@ export async function POST(request: Request) {
 
     const fromAddress =
       process.env.EMAIL_FROM_ADDRESS || "hello@soundgoose.com";
-    const subject = `[TEST PREVIEW] Sound Goose Issue #${issueNumber || 1}: ${title}`;
+    const subject = `[TEST PREVIEW] Soundgoose Issue #${issueNumber || 1}: ${title}`;
 
     // Option A: Send via Resend if API key is provided
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
       const resend = new Resend(resendApiKey);
       const { data, error } = await resend.emails.send({
-        from: `Sound Goose <${fromAddress}>`,
+        from: `Soundgoose <${fromAddress}>`,
         to: testEmail,
         subject,
         html,
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
       });
 
       const info = await transporter.sendMail({
-        from: `"Sound Goose" <${fromAddress}>`,
+        from: `"Soundgoose" <${fromAddress}>`,
         to: testEmail,
         subject,
         html,

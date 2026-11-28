@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { getNewsletterIssueBySlug } from "../../../sanity/lib/queries";
 
 export const runtime = "nodejs";
-export const alt = "Sound Goose Dispatch Newsletter";
+export const alt = "Soundgoose Dispatch Newsletter";
 export const size = {
   width: 1200,
   height: 630,
@@ -17,7 +17,7 @@ export default async function Image({
   const { slug } = await params;
   const issue = await getNewsletterIssueBySlug(slug);
 
-  const title = issue?.title || "Sound Goose Dispatch";
+  const title = issue?.title || "Soundgoose Dispatch";
   const issueNum = issue?.issueNumber
     ? `Issue #${issue.issueNumber}`
     : "Dispatch";
@@ -52,7 +52,7 @@ export default async function Image({
             letterSpacing: "-0.02em",
           }}
         >
-          Sound Goose Dispatch 🪿
+          Soundgoose Dispatch 🪿
         </div>
         <div
           style={{
