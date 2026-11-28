@@ -31,8 +31,8 @@ export default function Home() {
             title="Instagram"
           >
             <svg
-              width="15"
-              height="15"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -55,8 +55,8 @@ export default function Home() {
             title="X (Twitter)"
           >
             <svg
-              width="14"
-              height="14"
+              width="19"
+              height="19"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
