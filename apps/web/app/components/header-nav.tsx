@@ -62,7 +62,7 @@ export function HeaderNav() {
               </Link>
             </li>
             <li>
-              <Link href="/#waitlist" className={styles.ctaLink}>
+              <Link href="/" className={styles.ctaLink}>
                 Early Access
               </Link>
             </li>
