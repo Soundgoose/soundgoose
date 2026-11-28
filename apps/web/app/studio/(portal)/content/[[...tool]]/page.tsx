@@ -1,7 +1,7 @@
 import { StudioView } from "./studio-view";
 
 export const metadata = {
-  title: "Content Studio | Sound Goose Studio",
+  title: "Content Studio | Soundgoose Studio",
 };
 
 export default function StudioContentPage() {

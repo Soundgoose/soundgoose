@@ -1,7 +1,7 @@
 import { SyncAttioButton } from "../sync-attio-button";
 
 export const metadata = {
-  title: "Waitlist & CRM | Sound Goose Studio",
+  title: "Waitlist & CRM | Soundgoose Studio",
 };
 
 export default function StudioWaitlistPage() {

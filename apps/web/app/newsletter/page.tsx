@@ -7,18 +7,18 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Weekly Digest | Sound Goose",
+  title: "Weekly Digest | Soundgoose",
   description:
-    "Weekly engineering dispatches, spatial audio research, and studio milestones from Sound Goose.",
+    "Weekly engineering dispatches, spatial audio research, and studio milestones from Soundgoose.",
   alternates: {
     canonical: "https://soundgoose.com/newsletter",
   },
   openGraph: {
-    title: "Weekly Digest | Sound Goose",
+    title: "Weekly Digest | Soundgoose",
     description:
-      "Weekly engineering dispatches, spatial audio research, and studio milestones from Sound Goose.",
+      "Weekly engineering dispatches, spatial audio research, and studio milestones from Soundgoose.",
     url: "https://soundgoose.com/newsletter",
-    siteName: "Sound Goose",
+    siteName: "Soundgoose",
     type: "website",
   },
 };

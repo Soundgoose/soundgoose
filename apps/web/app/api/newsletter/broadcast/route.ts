@@ -107,7 +107,7 @@ export async function POST(request: Request) {
       slug: postSlug,
       emailExcerpt:
         postExcerpt ||
-        `We've published a new dispatch on Sound Goose: "${postTitle}". Read the complete article on our canonical web edition.`,
+        `We've published a new dispatch on Soundgoose: "${postTitle}". Read the complete article on our canonical web edition.`,
       tldr: tldr || doc?.tldr,
       actionableNextStep: actionableNextStep || doc?.actionableNextStep,
       authorName: doc?.author?.name,
@@ -115,9 +115,9 @@ export async function POST(request: Request) {
     });
 
     const subject = isPost
-      ? doc?.emailSubject || `Sound Goose: ${postTitle}`
+      ? doc?.emailSubject || `Soundgoose: ${postTitle}`
       : doc?.emailSubject ||
-        `Sound Goose Issue #${issueNumber || 1}: ${postTitle}`;
+        `Soundgoose Issue #${issueNumber || 1}: ${postTitle}`;
 
     const broadcastResult = await sendResendBroadcast({
       subject,

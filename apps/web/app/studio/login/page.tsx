@@ -61,7 +61,7 @@ export default function StudioLoginPage() {
         <div style={{ marginBottom: "1.5rem" }}>
           <Image
             src="/logo.png"
-            alt="Sound Goose"
+            alt="Soundgoose"
             width={150}
             height={50}
             style={{ width: "auto", height: "38px", margin: "0 auto" }}
@@ -215,7 +215,7 @@ export default function StudioLoginPage() {
             color: "#6b625b",
           }}
         >
-          Protected team perimeter for Sound Goose staff.
+          Protected team perimeter for Soundgoose staff.
         </div>
       </div>
     </div>

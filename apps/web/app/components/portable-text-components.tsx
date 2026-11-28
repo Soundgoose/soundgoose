@@ -33,7 +33,7 @@ export const portableTextComponents: PortableTextComponents = {
           >
             <Image
               src={imageUrl}
-              alt={value.alt || "Sound Goose article illustration"}
+              alt={value.alt || "Soundgoose article illustration"}
               width={900}
               height={500}
               style={{

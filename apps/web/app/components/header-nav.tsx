@@ -34,7 +34,7 @@ export function HeaderNav() {
         <Link href="/" className={styles.brandLink}>
           <Image
             src="/logo.png"
-            alt="Sound Goose"
+            alt="Soundgoose"
             width={150}
             height={50}
             style={{ width: "auto" }}

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./studio.css";
 
 export const metadata: Metadata = {
-  title: "Sound Goose Studio | Team Portal",
+  title: "Soundgoose Studio | Team Portal",
   description:
-    "Internal operations and editorial management portal for Sound Goose",
+    "Internal operations and editorial management portal for Soundgoose",
   robots: {
     index: false,
     follow: false,

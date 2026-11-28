@@ -47,7 +47,7 @@ export async function getResendAudienceId(): Promise<string | null> {
 
     // Attempt to create audience if none exist
     const createRes = await resend.audiences.create({
-      name: "Sound Goose Community",
+      name: "Soundgoose Community",
     });
     if (createRes.data?.id) {
       return createRes.data.id;
@@ -140,14 +140,14 @@ export async function sendResendBroadcast({
   const fromAddress =
     from ||
     process.env.EMAIL_FROM_ADDRESS ||
-    "Sound Goose <hello@soundgoose.com>";
+    "Soundgoose <hello@soundgoose.com>";
 
   try {
     const broadcastRes = await resend.broadcasts.create({
       audienceId: targetAudienceId,
       from: fromAddress.includes("<")
         ? fromAddress
-        : `Sound Goose <${fromAddress}>`,
+        : `Soundgoose <${fromAddress}>`,
       subject,
       html,
       previewText,

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { projectId, dataset } from "../../../sanity/env";
 
 export const metadata = {
-  title: "Overview | Sound Goose Studio",
+  title: "Overview | Soundgoose Studio",
 };
 
 export default function StudioOverviewPage() {
@@ -53,7 +53,7 @@ export default function StudioOverviewPage() {
               letterSpacing: "-0.02em",
             }}
           >
-            Sound Goose Studio
+            Soundgoose Studio
           </h1>
         </div>
 

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { getBlogPostBySlug } from "../../../sanity/lib/queries";
 
 export const runtime = "nodejs";
-export const alt = "Sound Goose Blog Post";
+export const alt = "Soundgoose Blog Post";
 export const size = {
   width: 1200,
   height: 630,
@@ -17,8 +17,8 @@ export default async function Image({
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
 
-  const title = post?.title || "Sound Goose Dispatch";
-  const authorName = post?.author?.name || "Sound Goose Team";
+  const title = post?.title || "Soundgoose Dispatch";
+  const authorName = post?.author?.name || "Soundgoose Team";
   const category = post?.categories?.[0]?.title || "Field Notes";
 
   return new ImageResponse(
@@ -51,7 +51,7 @@ export default async function Image({
             letterSpacing: "-0.02em",
           }}
         >
-          Sound Goose 🪿
+          Soundgoose 🪿
         </div>
         <div
           style={{

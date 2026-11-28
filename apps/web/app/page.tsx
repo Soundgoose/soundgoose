@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.hero} id="waitlist">
-        <h1 className={styles.headline}>Sound Goose</h1>
+        <h1 className={styles.headline}>Soundgoose</h1>
         <p className={styles.subheadline}>
           From unfinished demo to global release.
         </p>
@@ -14,7 +14,7 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <p className={styles.footerText}>
-          &copy; {new Date().getFullYear()} Sound Goose{" "}
+          &copy; {new Date().getFullYear()} Soundgoose{" "}
           <span className={styles.separator}>•</span> Built for independent
           artists
         </p>
@@ -27,7 +27,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
-            aria-label="Sound Goose on Instagram"
+            aria-label="Soundgoose on Instagram"
             title="Instagram"
           >
             <svg
@@ -51,7 +51,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
-            aria-label="Sound Goose on X"
+            aria-label="Soundgoose on X"
             title="X (Twitter)"
           >
             <svg

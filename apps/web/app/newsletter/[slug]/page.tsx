@@ -34,16 +34,16 @@ export async function generateMetadata({
 
   if (!issue) {
     return {
-      title: "Newsletter Issue Not Found | Sound Goose",
+      title: "Newsletter Issue Not Found | Soundgoose",
     };
   }
 
   // Lead with core topic in title tag
-  const title = `${issue.title} (Issue #${issue.issueNumber}) | Sound Goose`;
+  const title = `${issue.title} (Issue #${issue.issueNumber}) | Soundgoose`;
   const description =
     issue.metaDescription ||
     issue.emailExcerpt ||
-    "Read the Sound Goose technical dispatch on spatial audio and acoustic engineering.";
+    "Read the Soundgoose technical dispatch on spatial audio and acoustic engineering.";
   const canonical = `https://soundgoose.com/newsletter/${slug}`;
 
   return {
@@ -56,7 +56,7 @@ export async function generateMetadata({
       title,
       description,
       url: canonical,
-      siteName: "Sound Goose",
+      siteName: "Soundgoose",
       type: "article",
       publishedTime: issue.publishedAt,
     },
@@ -95,10 +95,10 @@ export default async function NewsletterIssuePage({
   const headings = extractHeadings(issue.fullBody);
   const issueUrl = `https://soundgoose.com/newsletter/${slug}`;
 
-  const authorName = issue.author?.name || "Sound Goose Audio Team";
+  const authorName = issue.author?.name || "Soundgoose Audio Team";
   const authorBio =
     issue.author?.bio ||
-    "Audio Systems Engineers and Sound Designers at Sound Goose, building real-time browser acoustics.";
+    "Audio Systems Engineers and Sound Designers at Soundgoose, building real-time browser acoustics.";
   const authorInitials = authorName
     .split(" ")
     .map((part) => part[0])
@@ -109,7 +109,7 @@ export default async function NewsletterIssuePage({
   const metaDesc =
     issue.metaDescription ||
     issue.emailExcerpt ||
-    "Sound Goose technical dispatch on browser acoustics.";
+    "Soundgoose technical dispatch on browser acoustics.";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -149,7 +149,7 @@ export default async function NewsletterIssuePage({
         },
         publisher: {
           "@type": "Organization",
-          name: "Sound Goose",
+          name: "Soundgoose",
           logo: {
             "@type": "ImageObject",
             url: "https://soundgoose.com/logo.png",
@@ -395,14 +395,14 @@ export default async function NewsletterIssuePage({
             Ready to experience collaborative audio?
           </h2>
           <p className={styles.canonicalCtaText}>
-            Sound Goose is rethinking spatial audio and live sound collaboration
+            Soundgoose is rethinking spatial audio and live sound collaboration
             directly in modern web browsers. Join our early access community.
           </p>
           <Link
             href={issue.canonicalCtaUrl || "/#waitlist"}
             className={styles.canonicalButton}
           >
-            {issue.canonicalCtaLabel || "Join the Sound Goose Waitlist"} &rarr;
+            {issue.canonicalCtaLabel || "Join the Soundgoose Waitlist"} &rarr;
           </Link>
         </div>
 

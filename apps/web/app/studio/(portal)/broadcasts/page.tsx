@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SyncAttioButton } from "../sync-attio-button";
 
 export const metadata = {
-  title: "Broadcasts | Sound Goose Studio",
+  title: "Broadcasts | Soundgoose Studio",
 };
 
 export default function StudioBroadcastsPage() {
@@ -299,7 +299,7 @@ export default function StudioBroadcastsPage() {
                 {
                   issue: "Issue #01",
                   title:
-                    "Welcome to Sound Goose: The Architecture of Audio Velocity",
+                    "Welcome to Soundgoose: The Architecture of Audio Velocity",
                   status: "Sent",
                   subs: "1,890",
                   open: "61.2%",

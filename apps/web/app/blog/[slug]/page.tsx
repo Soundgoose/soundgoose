@@ -35,15 +35,15 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Article Not Found | Sound Goose",
+      title: "Article Not Found | Soundgoose",
     };
   }
 
-  const title = post.seo?.metaTitle || `${post.title} | Sound Goose`;
+  const title = post.seo?.metaTitle || `${post.title} | Soundgoose`;
   const description =
     post.seo?.metaDescription ||
     post.excerpt ||
-    "Read this dispatch on Sound Goose.";
+    "Read this dispatch on Soundgoose.";
   const canonical =
     post.seo?.canonicalUrl || `https://soundgoose.com/blog/${slug}`;
   const coverUrl = post.coverImage
@@ -60,7 +60,7 @@ export async function generateMetadata({
       title,
       description,
       url: canonical,
-      siteName: "Sound Goose",
+      siteName: "Soundgoose",
       type: "article",
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
@@ -131,11 +131,11 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         dateModified: post.publishedAt,
         author: {
           "@type": "Person",
-          name: post.author?.name || "Sound Goose Team",
+          name: post.author?.name || "Soundgoose Team",
         },
         publisher: {
           "@type": "Organization",
-          name: "Sound Goose",
+          name: "Soundgoose",
           logo: {
             "@type": "ImageObject",
             url: "https://soundgoose.com/logo.png",
@@ -215,7 +215,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             <div className={styles.authorAvatar}>{authorInitials}</div>
             <div className={styles.authorInfo}>
               <span className={styles.authorName}>
-                {post.author?.name || "Sound Goose Team"}
+                {post.author?.name || "Soundgoose Team"}
               </span>
               <time className={styles.publishDate} dateTime={post.publishedAt}>
                 Published on {formattedDate}
@@ -258,11 +258,11 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             <div className={styles.bioAvatar}>{authorInitials}</div>
             <div>
               <h3 className={styles.bioName}>
-                {post.author?.name || "Sound Goose Team"}
+                {post.author?.name || "Soundgoose Team"}
               </h3>
               <p className={styles.bioText}>
                 {post.author?.bio ||
-                  "Engineers and sound designers at Sound Goose, rethinking spatial audio, browser acoustics, and collaborative creation."}
+                  "Engineers and sound designers at Soundgoose, rethinking spatial audio, browser acoustics, and collaborative creation."}
               </p>
             </div>
           </div>

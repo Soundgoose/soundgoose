@@ -7,7 +7,7 @@ import { SendToMailingListAction } from "./actions/sendToMailingListAction";
 
 export default defineConfig({
   name: "default",
-  title: "Sound Goose Studio",
+  title: "Soundgoose Studio",
 
   projectId: "qcz8ykkg",
   dataset: "production",

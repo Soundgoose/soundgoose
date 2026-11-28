@@ -7,18 +7,18 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Blogs | Sound Goose",
+  title: "Blogs | Soundgoose",
   description:
-    "Engineering dispatches, spatial audio research, and studio production notes from Sound Goose.",
+    "Engineering dispatches, spatial audio research, and studio production notes from Soundgoose.",
   alternates: {
     canonical: "https://soundgoose.com/blog",
   },
   openGraph: {
-    title: "Blogs | Sound Goose",
+    title: "Blogs | Soundgoose",
     description:
-      "Engineering dispatches, spatial audio research, and studio production notes from Sound Goose.",
+      "Engineering dispatches, spatial audio research, and studio production notes from Soundgoose.",
     url: "https://soundgoose.com/blog",
-    siteName: "Sound Goose",
+    siteName: "Soundgoose",
     type: "website",
   },
 };

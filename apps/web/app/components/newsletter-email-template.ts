@@ -38,8 +38,8 @@ export function generateEditorialEmailHtml({
   const badgeText = isPost ? "New Dispatch" : `Issue #${issueNumber || 1}`;
 
   const ctaButtonText = isPost
-    ? "Read Full Article on Sound Goose &rarr;"
-    : "Read Full Deep Dive on Sound Goose &rarr;";
+    ? "Read Full Article on Soundgoose &rarr;"
+    : "Read Full Deep Dive on Soundgoose &rarr;";
 
   const bylineHtml = authorName
     ? `<div style="font-size: 13px; color: #8F7668; margin-bottom: 16px; font-weight: 500;">By ${authorName}</div>`
@@ -102,7 +102,7 @@ export function generateEditorialEmailHtml({
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sound Goose: ${title}</title>
+  <title>Soundgoose: ${title}</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
     body, table, td, p, h1, h2 {
@@ -127,7 +127,7 @@ export function generateEditorialEmailHtml({
                   <td style="vertical-align: middle; padding-right: 10px;">
                     <img 
                       src="https://soundgoose.com/logo.png" 
-                      alt="Sound Goose" 
+                      alt="Soundgoose" 
                       width="34" 
                       height="24" 
                       style="display: block; width: 34px; height: 24px; border: 0;"
@@ -135,7 +135,7 @@ export function generateEditorialEmailHtml({
                   </td>
                   <td style="vertical-align: middle;">
                     <span class="headline-font" style="font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 700; color: #40271E; letter-spacing: -0.02em;">
-                      Sound Goose
+                      Soundgoose
                     </span>
                   </td>
                 </tr>
@@ -202,10 +202,10 @@ export function generateEditorialEmailHtml({
     <tr>
       <td style="background-color: #F2EAE2; padding: 20px 32px; border-top: 1px solid #E8DDD2; text-align: center;">
         <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #40271E;">
-          Team Sound Goose &bull; <a href="https://soundgoose.com" style="color: #73513D; text-decoration: none;">soundgoose.com</a> &bull; <a href="${archiveUrl}" style="color: #73513D; text-decoration: underline;">${isPost ? "All Articles" : "Issue Archive"}</a>
+          Team Soundgoose &bull; <a href="https://soundgoose.com" style="color: #73513D; text-decoration: none;">soundgoose.com</a> &bull; <a href="${archiveUrl}" style="color: #73513D; text-decoration: underline;">${isPost ? "All Articles" : "Issue Archive"}</a>
         </p>
         <p style="margin: 0; font-size: 11px; color: #9E8578; line-height: 16px;">
-          You are receiving this because you subscribed to the Sound Goose Dispatch or early access waitlist.<br />
+          You are receiving this because you subscribed to the Soundgoose Dispatch or early access waitlist.<br />
           <a href="${unsubscribeUrl}" style="color: #73513D; text-decoration: underline;">Unsubscribe</a> from future dispatches.
         </p>
       </td>

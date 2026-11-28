@@ -62,7 +62,7 @@ export function generateWaitlistEmailHtml() {
             <td style="vertical-align: middle; padding-right: 10px;">
               <img 
                 src="cid:soundgoose-logo" 
-                alt="Sound Goose" 
+                alt="Soundgoose" 
                 width="36" 
                 height="26" 
                 style="display: block; width: 36px; height: 26px; border: 0;"
@@ -70,7 +70,7 @@ export function generateWaitlistEmailHtml() {
             </td>
             <td style="vertical-align: middle;">
               <span class="headline-font" style="font-family: 'Fraunces', Georgia, serif; font-size: 19px; font-weight: 700; color: #40271E; letter-spacing: -0.02em;">
-                Sound Goose
+                Soundgoose
               </span>
             </td>
           </tr>
@@ -128,10 +128,10 @@ export async function sendWaitlistConfirmation(
   }
 
   const fromEmail = process.env.EMAIL_FROM_ADDRESS || "hello@soundgoose.com";
-  const fromHeader = `"Sound Goose" <${fromEmail}>`;
+  const fromHeader = `"Soundgoose" <${fromEmail}>`;
 
   const htmlContent = generateWaitlistEmailHtml();
-  const textContent = `Sound Goose
+  const textContent = `Soundgoose
 
 You're on the list, gosling.
 
@@ -139,7 +139,7 @@ Thanks for dropping your email. We've saved your spot on the waitlist and will r
 
 Until then, back to the studio.
 
-Team Sound Goose — https://soundgoose.com
+Team Soundgoose — https://soundgoose.com
 `;
 
   try {

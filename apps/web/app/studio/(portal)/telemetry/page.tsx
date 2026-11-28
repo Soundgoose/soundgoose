@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Telemetry | Sound Goose Studio",
+  title: "Telemetry | Soundgoose Studio",
 };
 
 export default function StudioTelemetryPage() {
