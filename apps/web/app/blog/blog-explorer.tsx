@@ -121,7 +121,7 @@ export function BlogExplorer({ posts }: BlogExplorerProps) {
     <>
       <section
         className={styles.toolbar}
-        aria-label="Filter and search Liner Notes"
+        aria-label="Filter and search blog articles"
       >
         <div className={styles.categoriesList}>
           {categories.map((cat) => (

@@ -7,14 +7,14 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Liner Notes | Soundgoose",
+  title: "Blogs | Soundgoose",
   description:
     "Engineering dispatches, spatial audio research, and studio production notes from Soundgoose.",
   alternates: {
     canonical: "https://soundgoose.com/blog",
   },
   openGraph: {
-    title: "Liner Notes | Soundgoose",
+    title: "Blogs | Soundgoose",
     description:
       "Engineering dispatches, spatial audio research, and studio production notes from Soundgoose.",
     url: "https://soundgoose.com/blog",
@@ -28,6 +28,15 @@ export default async function BlogIndexPage() {
 
   return (
     <main className={styles.container}>
+      <header className={styles.masthead}>
+        <div className={styles.mastheadTop}>
+          <h1 className={styles.title}>Blogs</h1>
+          <span className={styles.countBadge}>
+            {posts.length} {posts.length === 1 ? "Article" : "Articles"}
+          </span>
+        </div>
+      </header>
+
       <BlogExplorer posts={posts} />
     </main>
   );

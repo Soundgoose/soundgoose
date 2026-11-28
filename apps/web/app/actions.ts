@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { sendWaitlistConfirmation, EmailSendResult } from "./email";
+import { syncContactToResend } from "./lib/resend";
 
 export interface WaitlistMetadata {
   utm_source?: string;
@@ -253,7 +254,14 @@ export async function joinWaitlist(
       }
     }
 
-    // 5. If already registered, skip sending email and return alreadyRegistered flag
+    // 5. Sync contact to Resend Audience mailing list
+    try {
+      await syncContactToResend({ email });
+    } catch (resendErr) {
+      console.warn("[Waitlist Flow] Resend audience sync warning:", resendErr);
+    }
+
+    // 6. If already registered, skip sending email and return alreadyRegistered flag
     if (isExistingContact) {
       console.log(
         `[Waitlist Flow] Contact ${email} already on waitlist. Skipping duplicate confirmation email.`,
@@ -269,7 +277,7 @@ export async function joinWaitlist(
       return { ok: true, alreadyRegistered: true };
     }
 
-    // 6. Send confirmation email for new signup and record email_status attribute on waitlist entry
+    // 7. Send confirmation email for new signup and record email_status attribute on waitlist entry
     try {
       const emailResult = await sendWaitlistConfirmation(email);
 
